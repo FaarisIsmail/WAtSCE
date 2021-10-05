@@ -3,7 +3,7 @@ import './App.css';
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, signInAnonymously, GithubAuthProvider } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
@@ -46,8 +46,15 @@ function SignIn() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);
   }
+  const signInWithGithub = () => {
+    const provider = new GithubAuthProvider();
+    signInWithPopup(auth, provider);
+  }
   return !auth.currentUser && (
+      <>
       <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
+      <button className="sign-in" onClick={signInWithGithub}>Sign in with Github</button>
+      </>
   )
 }
 
