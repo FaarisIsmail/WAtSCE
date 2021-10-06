@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, signInAnonymously, GithubAuthProvider } from "firebase/auth";
+import firebase from 'firebase/compat/app';
+import * as firebaseui from 'firebaseui'
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import StyledFirebaseAuth from 'react-firebaseui/dist/StyledFirebaseAuth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 
 
-const firebaseConfig = {
+firebase.initializeApp({
   apiKey: "AIzaSyDny8PAsKPiFPsdp8ml7M4xlu-XLwsNjgM",
   authDomain: "cs1980.firebaseapp.com",
   projectId: "cs1980",
@@ -17,13 +19,26 @@ const firebaseConfig = {
   messagingSenderId: "725657314446",
   appId: "1:725657314446:web:46e71dc4e4ddcccc0515df",
   measurementId: "G-L36F0RL44J"
+})
+
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+
+const uiConfig = {
+  // Popup signin flow rather than redirect flow.
+  signInFlow: 'popup',
+  // We will display Google and Facebook as auth providers.
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+    firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
+  ],
+  callbacks: {
+    // Avoid redirects after sign-in.
+    signInSuccessWithAuthResult: () => false,
+  },
 };
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth();
-
-
 
 
 function App() {
@@ -34,36 +49,40 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <SignIn />
-        <SignOut />
+        <SignInScreen />
       </header>
     </div>
   );
 }
 
-function SignIn() {
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
-  }
-  const signInWithGithub = () => {
-    const provider = new GithubAuthProvider();
-    signInWithPopup(auth, provider);
-  }
-  return !auth.currentUser && (
-      <>
-      <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
-      <button className="sign-in" onClick={signInWithGithub}>Sign in with Github</button>
-      </>
-  )
-}
 
-function SignOut() {
-  return auth.currentUser && (
-    <button className="sign-out" onClick={() => signOut(auth)}>Sign Out</button>
-  )
-}
+function SignInScreen() {
+  const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
 
-function Main() {}
+  // Listen to the Firebase Auth state and set the local state.
+  useEffect(() => {
+    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
+      setIsSignedIn(!!user);
+    });
+    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+  }, []);
+
+  if (!isSignedIn) {
+    return (
+      <div>
+        <h1>My App</h1>
+        <p>Please sign-in:</p>
+        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+      </div>
+    );
+  }
+  return (
+    <div>
+      <h1>My App</h1>
+      <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+      <button className="sign-out" onClick={() => firebase.auth().signOut()}>Sign-out</button>
+    </div>
+  );
+}
 
 export default App;
