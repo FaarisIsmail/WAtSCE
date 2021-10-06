@@ -23,7 +23,6 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
-firebase.auth().settings.appVerificationDisabledForTesting = true;
 
 const uiConfig = {
   // Popup signin flow rather than redirect flow.
