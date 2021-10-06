@@ -23,6 +23,7 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+firebase.auth().settings.appVerificationDisabledForTesting = true;
 
 const uiConfig = {
   // Popup signin flow rather than redirect flow.
@@ -55,7 +56,6 @@ function App() {
   );
 }
 
-
 function SignInScreen() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
 
@@ -79,7 +79,7 @@ function SignInScreen() {
   return (
     <div>
       <h1>My App</h1>
-      <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+      <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in! </p>
       <button className="sign-out" onClick={() => firebase.auth().signOut()}>Sign-out</button>
     </div>
   );
