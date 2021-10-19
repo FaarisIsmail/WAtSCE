@@ -3,12 +3,12 @@ read -p "Enter your commit message: " commitMessage
 
 git add .
 git commit -m "${commitMessage}"
-git checkout master
-git pull origin master
+git checkout main
+git pull origin main
 git merge ${devBranch}
 git add .
 git commit -m "${commitMessage}"
-git push origin master
+git push origin main
 git checkout ${devBranch}
-git merge master
+git merge main
 git push origin ${devBranch}
