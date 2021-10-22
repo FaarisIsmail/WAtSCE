@@ -13,6 +13,11 @@ import { doc, getDoc } from 'firebase/firestore';
 import { withRouter } from "react-router-dom";
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 import Route from "react-router-dom/Route";
+import Navbar from "./components/Navbar/Navbar";
+
+import About from './Pages/About';
+import CreateEvent from './Pages/CreateEvent';
+import Home from './Pages/Home';
 
 firebase.initializeApp({
   apiKey: "AIzaSyDny8PAsKPiFPsdp8ml7M4xlu-XLwsNjgM",
@@ -80,8 +85,13 @@ function App() {
   }
 
   return (
+
+    <Router>
+
+    <Navbar />
+
     <div className="App">
-      <Route path="/" exact strict render={
+      <Route path="/signin" exact strict render={
         () => {
           return (
             <header className="App-header">
@@ -107,8 +117,12 @@ function App() {
       }/>
       
     </div>
-    
-    
+
+    <Route path="/about" component={About} />
+    <Route path="/create-event" component={CreateEvent} />
+    <Route path="/" exact component={Home} />
+
+    </Router>
     
   );
 }
