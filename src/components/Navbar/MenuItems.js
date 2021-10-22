@@ -16,8 +16,8 @@ export const MenuItems = [
   },
 
     {
-      title: 'Sign In (temp)',
-      url: '/signin',
+      title: 'tmp',
+      url: '/',
       cName: 'nav-links',
   },
     {

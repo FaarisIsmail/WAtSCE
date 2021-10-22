@@ -1,5 +1,8 @@
 import React from 'react';
 import './Button.css';
+import { useHistory } from "react-router-dom";
+
+
 
 const STYLES = [
   'btn--primary',
@@ -17,7 +20,7 @@ export const Button = ({ children, type, onClick, buttonStyle, buttonSize }) => 
   const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0]
 
   return (
-    <button className={`btn ${checkButtonStyle} ${checkButtonSize}`} onClick={onClick} type={type}>
+    <button className={`btn ${checkButtonStyle} ${checkButtonSize}`} onClick={event =>  window.location.href='/signin'} type={type}>
       {children}
     </button>
   )
