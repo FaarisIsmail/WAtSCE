@@ -32,7 +32,7 @@ class Navbar extends React.Component {
             )
           })}
         </ul>
-          <Button>Sign In</Button>
+          <Button>Sign Out</Button>
       </nav>
     )
   }

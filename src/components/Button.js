@@ -1,6 +1,8 @@
 import React from 'react';
 import './Button.css';
 import { useHistory } from "react-router-dom";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 
 
@@ -20,7 +22,7 @@ export const Button = ({ children, type, onClick, buttonStyle, buttonSize }) => 
   const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0]
 
   return (
-    <button className={`btn ${checkButtonStyle} ${checkButtonSize}`} onClick={event =>  window.location.href='/signin'} type={type}>
+    <button className={`btn ${checkButtonStyle} ${checkButtonSize}`} onClick={() => firebase.auth().signOut()} type={type}>
       {children}
     </button>
   )
