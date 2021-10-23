@@ -2,6 +2,7 @@ import React from 'react';
 import { MenuItems } from './MenuItems';
 import { Button } from '../Button'
 import './Navbar.css';
+import {auth} from '../../firebase.js'
 
 class Navbar extends React.Component {
 
@@ -15,8 +16,8 @@ class Navbar extends React.Component {
 
     return (
       <nav className="NavbarItems">
-
-        <h1 className="navbar-logo">React<i className="fab fa-react"></i></h1>
+        <h1 className="navbar-logo">Hello {auth.currentUser.displayName || auth.currentUser.phoneNumber.substring(2,12) || "Anonymous"}!</h1>
+        {/* <h1 className="navbar-logo">React<i className="fab fa-react"></i></h1> */}
         <div className="menu-icon" onClick={this.handleClick}>
           <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
         </div>
@@ -32,7 +33,7 @@ class Navbar extends React.Component {
             )
           })}
         </ul>
-          <Button>Sign Out</Button>
+          <Button onClick={() => auth.signOut()}>Sign Out </Button>
       </nav>
     )
   }

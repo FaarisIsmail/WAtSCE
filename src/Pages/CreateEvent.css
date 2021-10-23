@@ -1,4 +1,3 @@
-body {background-color: #282c34}
 
 
 .test {
@@ -13,5 +12,7 @@ body {background-color: #282c34}
     color: white;
   }
   
-  
+  .center {
+    text-align: center;
+  }
   

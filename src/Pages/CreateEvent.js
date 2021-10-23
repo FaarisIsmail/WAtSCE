@@ -3,6 +3,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
+import { Button } from '../components/Button'
 
 
 
@@ -133,11 +134,13 @@ export default function CreateEvent() {
   if (userRole == "student")
   {
     return (
-      <div>
+      <div class='center'>
         <h1 class='test'>Student Homepage</h1>
-        <Link to="/request_form" class="test">Request Access</Link>
+        <div>
+          <Button onClick={event =>  window.location.href='/request_form'}>Request Access</Button>
+        </div>
         <br></br>
-        <button className="test" onClick={() => auth.signOut()}>Sign-out</button>
+        <Button>Sign-out</Button>
       </div>
     );
   }
