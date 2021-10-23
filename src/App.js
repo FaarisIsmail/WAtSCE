@@ -70,7 +70,7 @@ function SignInScreen() {
   
     return (
       <div className="App">
-        <h1>My App</h1>
+        <h1>WATSCE</h1>
         <p>Please sign-in:</p>
         <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
       </div>

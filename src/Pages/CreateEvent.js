@@ -135,7 +135,7 @@ export default function CreateEvent() {
   {
     return (
       <div class='center'>
-        <h1 class='test'>Student Homepage</h1>
+        <h1 class='test'>Please request access to create events<br/></h1>
         <div>
           <Button onClick={event =>  window.location.href='/request_form'}>Request Access</Button>
         </div>
