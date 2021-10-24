@@ -6,39 +6,9 @@ import './CreateEvent.css';
 import { Button } from '../components/Button'
 
 
-
-
 export default function CreateEvent() {
   const history = useHistory();
-  //function called when request form is submitted
-  //creates a new request document w/ the data from the request form
-  //entry will be named after the user id (but i might change that later)
-  const RequestAccess = async (e) =>
-  {
-    //get info from request form
-    let name = e.target.rname.value;
-    let reason = e.target.reason.value;
 
-    //get the user id of the currently logged in user 
-    let user = auth.currentUser;
-    let uid = user.uid;
-
-    //create the request document in firestore
-    db.collection("requests").doc(uid).set({
-      name: name,
-      reason: reason,
-      user_id: uid
-    })
-    .then(() => {
-      console.log("Document successfully written!");
-    })
-    .catch((error) => {
-      console.error("Error writing document: ", error);
-    });
-
-    //go back to the homepage when finished
-    history.push('/');
-  }
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
   const [userRole, setUserRole] = useState();  // Local user role state
   const [requests, setRequests] = useState([]); // List of requests
@@ -155,7 +125,7 @@ export default function CreateEvent() {
     );
   }
   //admin homepage
-  else
+  else if (userRole == "admin")
   {
     return (
       <div>
@@ -173,4 +143,10 @@ export default function CreateEvent() {
       </div>
     );
   }
+  else {
+    return (
+      null
+    )
+  }
+  
 }

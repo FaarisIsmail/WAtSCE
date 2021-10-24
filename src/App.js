@@ -8,10 +8,12 @@ import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router
 import Route from "react-router-dom/Route";
 import Navbar from "./components/Navbar/Navbar";
 import {auth, db, firestore, uiConfig} from './firebase.js'
-
 import About from './Pages/About';
 import CreateEvent from './Pages/CreateEvent';
 import Home from './Pages/Home';
+import calLottie from './lottie'
+import { RequestForm } from './Pages/RequestForm';
+
 
 
 
@@ -37,26 +39,7 @@ function Main() {
     <Router>
 
     <Navbar />
-
-    <div className="default">
-      <Route path="/request_form" exact strict render={ //form to gather data for a host role request
-        () => {
-          return (
-            <div>
-              <form onSubmit={CreateEvent}>
-                <div>Enter your name:</div> <br></br>
-                <input type="text" id="rname" name="rname"></input> <br></br>
-                <div>Why do you want to be able to create events?</div> <br></br>
-                <input type="text" id="reason" name="reason"></input> <br></br>
-                <button>Submit</button>
-              </form>
-            </div>
-          );
-        }
-      }/>
-      
-    </div>
-
+    <Route path="/request_form" component={RequestForm} />
     <Route path="/about" component={About} />
     <Route path="/create-event" component={CreateEvent} />
     <Route path="/" exact component={Home} />
@@ -71,6 +54,7 @@ function SignInScreen() {
     return (
       <div className="App">
         <h1>WATSCE</h1>
+        {calLottie()}
         <p>Please sign-in:</p>
         <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
       </div>
