@@ -3,8 +3,7 @@ import { MenuItems } from './MenuItems';
 import { Button } from '../Button'
 import './Navbar.css';
 import {auth} from '../../firebase.js'
-import logo from './logo6.png';
-import watsce from './watsce1.png';
+import logo from './logo7.png';
 
 class Navbar extends React.Component {
 
@@ -19,11 +18,13 @@ class Navbar extends React.Component {
     return (
       <nav className="NavbarItems">
 
+        <hr /><hr /><hr /><hr /><hr /><hr /><hr /><hr />
+
         <a href="/">
           <img src={logo} alt="logo_main" />
         </a>
 
-        <img src={watsce} alt="logo_name" />
+        <hr /><hr /><hr /><hr /><hr /><hr />
 
         <h1 className="navbar-logo">Hello {auth.currentUser.displayName || auth.currentUser.phoneNumber || "Anonymous"}!</h1>
         {/* <h1 className="navbar-logo">React<i className="fab fa-react"></i></h1> */}
