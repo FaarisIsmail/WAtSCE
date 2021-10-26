@@ -101,7 +101,7 @@ export default function CreateEvent() {
   }, []);
 
   //student homepage
-  if (userRole == "student")
+  if (userRole === "student")
   {
     return (
       <div class='center'>
@@ -115,7 +115,7 @@ export default function CreateEvent() {
     );
   }
   //host homepage
-  else if (userRole == "host")
+  else if (userRole === "host")
   {
     return (
       <div>
@@ -125,7 +125,7 @@ export default function CreateEvent() {
     );
   }
   //admin homepage
-  else if (userRole == "admin")
+  else if (userRole === "admin")
   {
     return (
       <div>
