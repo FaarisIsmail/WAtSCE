@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
@@ -100,6 +100,12 @@ export default function CreateEvent() {
     {
       let name = e.target.event_name.value;
       let description = e.target.description.value;
+      let location = e.target.location.value;
+      let start_date = e.target.date.value + " " + e.target.start.value;
+      let end_date = e.target.date.value + " " + e.target.end.value;
+    
+      let s_date = new Date(start_date);
+      let e_date = new Date(end_date);
   
       //get the user id of the currently logged in user 
       let user = auth.currentUser;
@@ -109,7 +115,10 @@ export default function CreateEvent() {
       db.collection("events").doc().set({
         name: name,
         description: description,
-        host_id: uid
+        host_id: uid,
+        location: location,
+        start: Timestamp.fromDate(s_date),
+        end: Timestamp.fromDate(e_date)
       })
       .then(() => {
         console.log("Document successfully written!");
@@ -177,6 +186,8 @@ export default function CreateEvent() {
           <form onSubmit={CreateEvent}>
             <div>Enter the event name:</div> <br></br>
             <input type="text" id="event_name" name="event_name"></input> <br></br><br></br>
+            <div>Enter the location of the event:</div> <br></br>
+            <input type="text" id="location" name="location"></input> <br></br><br></br>
             <div>Enter a description for the event:</div> <br></br>
             <input type="text" id="description" name="description"></input> <br></br><br></br>
             <div>Enter the event date:</div> <br></br>
