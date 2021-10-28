@@ -89,10 +89,10 @@ export default function Home1() {
           <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
 
           {!registrationExists(event.id) && auth.currentUser.uid != event.data().host_id &&
-            <button onClick={() => registerForEvent(event.id)}>Register</button>
+            <Button onClick={() => registerForEvent(event.id)}>Register</Button>
           }
           {registrationExists(event.id) &&
-            <button onClick={() => cancelRegistration(event.id)}>Cancel Registration</button>
+            <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button>
           }
           <br></br><br></br><br></br><br></br>
         </div>
@@ -102,6 +102,7 @@ export default function Home1() {
       {events.map((event) => (
         <div key = {event.id}>
           {registrationExists(event.id) &&
+<<<<<<< HEAD
           <>
           <div>{event.data().name}</div><br></br>
           <div>{event.data().location}</div> <br></br>
@@ -109,6 +110,9 @@ export default function Home1() {
           <div>{event.data().date_string}</div> <br></br>
           <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
           <button onClick={() => cancelRegistration(event.id)}>Cancel Registration</button><br></br><br></br><br></br><br></br></>}
+=======
+          <><div>{event.data().name}</div><br></br><div>{event.data().description}</div><br></br><Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button><br></br><br></br><br></br><br></br></>}
+>>>>>>> faaris
         </div>
       ))}
     </div>
