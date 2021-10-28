@@ -103,6 +103,9 @@ export default function CreateEvent() {
       let location = e.target.location.value;
       let start_date = e.target.date.value + " " + e.target.start.value;
       let end_date = e.target.date.value + " " + e.target.end.value;
+      let date = e.target.date.value;
+      let start_time = e.target.start.value;
+      let end_time = e.target.end.value;
     
       let s_date = new Date(start_date);
       let e_date = new Date(end_date);
@@ -118,7 +121,10 @@ export default function CreateEvent() {
         host_id: uid,
         location: location,
         start: Timestamp.fromDate(s_date),
-        end: Timestamp.fromDate(e_date)
+        end: Timestamp.fromDate(e_date),
+        start_string: s_date.toLocaleTimeString("en-US"),
+        end_string: e_date.toLocaleTimeString("en-US"),
+        date_string: s_date.toDateString()
       })
       .then(() => {
         console.log("Document successfully written!");
@@ -202,8 +208,11 @@ export default function CreateEvent() {
           <h1>Your Events</h1>
           {events.map((event) => (
           <div key = {event.name}>
-            <div>{event.data().name}</div> <br></br>
+            <div>{event.data().name}</div><br></br>
+            <div>{event.data().location}</div> <br></br>
             <div>{event.data().description}</div> <br></br>
+            <div>{event.data().date_string}</div> <br></br>
+            <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
             <button onClick={() => deleteEvent(event.id)}>Cancel</button>
             <br></br><br></br><br></br><br></br>
           </div>
