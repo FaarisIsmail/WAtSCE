@@ -13,6 +13,7 @@ import CreateEvent from './Pages/CreateEvent';
 import Home from './Pages/Home';
 import calLottie from './lottie'
 import { RequestForm } from './Pages/RequestForm';
+import { Register } from './Pages/Register';
 
 
 
@@ -42,6 +43,7 @@ function Main() {
     <Route path="/about" component={About} />
     <Route path="/create-event" component={CreateEvent} />
     <Route path="/" exact component={Home} />
+    <Route path="/register" component={Register} />
 
     </Router>
     
