@@ -102,17 +102,13 @@ export default function Home1() {
       {events.map((event) => (
         <div key = {event.id}>
           {registrationExists(event.id) &&
-<<<<<<< HEAD
           <>
           <div>{event.data().name}</div><br></br>
           <div>{event.data().location}</div> <br></br>
           <div>{event.data().description}</div> <br></br>
           <div>{event.data().date_string}</div> <br></br>
           <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
-          <button onClick={() => cancelRegistration(event.id)}>Cancel Registration</button><br></br><br></br><br></br><br></br></>}
-=======
-          <><div>{event.data().name}</div><br></br><div>{event.data().description}</div><br></br><Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button><br></br><br></br><br></br><br></br></>}
->>>>>>> faaris
+          <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button><br></br><br></br><br></br><br></br></>}
         </div>
       ))}
     </div>
