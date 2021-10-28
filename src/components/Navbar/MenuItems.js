@@ -5,20 +5,14 @@ export const MenuItems = [
     cName: 'nav-links',
   },
     {
-    title: 'About',
-    url: '/about',
-    cName: 'nav-links',
-  },
-    {
       title: 'Create an event',
       url: '/create-event',
       cName: 'nav-links',
   },
-
     {
-      title: 'tmp',
-      url: '/',
-      cName: 'nav-links',
+    title: 'About',
+    url: '/about',
+    cName: 'nav-links',
   },
     {
     title: 'Sign In',

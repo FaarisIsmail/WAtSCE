@@ -1,18 +1,26 @@
-
-
 .test {
-    text-align: center;
-    background-color: #282c34;
-    min-height: 1vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .center {
-    text-align: center;
-  }
-  
+  text-align: center;
+  background-color: #282c34;
+  min-height: 1vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.center {
+  text-align: center;
+}
+
+h1 {
+  margin: 20px;
+  font-size: clamp(1em, 2vw, 2em);
+  color: #ffff;
+}
+
+div {
+  text-align: center;
+  color: #ffff;
+}
