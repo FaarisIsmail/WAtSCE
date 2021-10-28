@@ -172,8 +172,6 @@ export default function CreateEvent() {
         <div>
           <Button onClick={event =>  window.location.href='/request_form'}>Request Access</Button>
         </div>
-        <br></br>
-        <Button>Sign-out</Button>
       </div>
     );
   }

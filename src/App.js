@@ -32,13 +32,12 @@ function App() {
 
 function Main() {
   const history = useHistory();
-
-
   return (
 
     <Router>
 
     <Navbar />
+    
     <Route path="/request_form" component={RequestForm} />
     <Route path="/about" component={About} />
     <Route path="/create-event" component={CreateEvent} />
