@@ -1,0 +1,15 @@
+.about {
+  text-align: center;
+  background-color: #282c34;
+  color: #ffff;
+}
+
+h2 {
+  margin: 20px;
+  font-size: clamp(1em, 2vw, 2em);
+}
+
+p {
+  margin: clamp(10px, 2vw, 3em);
+  font-size: clamp(1em, 2vw, 2em);
+}
