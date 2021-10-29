@@ -3,7 +3,9 @@ import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
-import { Button } from '../components/Button'
+import { Button } from '../components/Button';
+import QRCode from 'react-qr-code';
+
 
 
 export default function CreateEvent() {
@@ -134,7 +136,9 @@ export default function CreateEvent() {
       });
   
       //go back to the homepage when finished
-      history.push('/');
+      history.push("/")
+
+      
     }
 
     //deletes the event and all associated user registrations
@@ -200,7 +204,7 @@ export default function CreateEvent() {
             <input type="time" id="start" name="start"></input><br></br><br></br>
             <div>End Time:</div> <br></br>
             <input type="time" id="end" name="end"></input><br></br><br></br>
-            <button>Submit</button>
+            <Button>Submit</Button>
           </form>
           <br></br><br></br><br></br><br></br>
           <h1>Your Events</h1>
@@ -211,11 +215,12 @@ export default function CreateEvent() {
             <div>{event.data().description}</div> <br></br>
             <div>{event.data().date_string}</div> <br></br>
             <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
-            <button onClick={() => deleteEvent(event.id)}>Cancel</button>
+            <h1>Registration QR Code:</h1>
+            <QRCode value={"https://cs1980.web.app/register/"+event.id} ></QRCode><br/><br/>
+            <Button onClick={() => deleteEvent(event.id)}>Cancel Event</Button>
             <br></br><br></br><br></br><br></br>
           </div>
         ))}
-        <button className="test" onClick={() => auth.signOut()}>Sign-out</button>
       </div>
     );
   }
@@ -229,12 +234,11 @@ export default function CreateEvent() {
           <div key = {request.user_id}>
             <div>{request.name}</div> <br></br>
             <div>{request.reason}</div> <br></br>
-            <button onClick={() => acceptRequest(request.user_id)}>Accept</button>
-            <button onClick={() => declineRequest(request.user_id)}>Decline</button>
+            <Button onClick={() => acceptRequest(request.user_id)}>Accept</Button>
+            <Button onClick={() => declineRequest(request.user_id)}>Decline</Button>
             <br></br><br></br><br></br><br></br>
           </div>
         ))}
-        <button className="test" onClick={() => auth.signOut()}>Sign-out</button>
       </div>
     );
   }

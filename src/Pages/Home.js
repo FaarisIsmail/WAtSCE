@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
 import { Button } from '../components/Button'
+import QRCode from "react-qr-code"
+
 
 export default function Home1() {
   const history = useHistory();
@@ -89,7 +91,7 @@ export default function Home1() {
           <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
 
           {!registrationExists(event.id) && auth.currentUser.uid != event.data().host_id &&
-            <Button onClick={() => registerForEvent(event.id)}>Register</Button>
+            <Button onClick={() => registerForEvent(event.id)}>Register</Button>  
           }
           {registrationExists(event.id) &&
             <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button>
