@@ -100,6 +100,7 @@ export default function CreateEvent() {
   //creates an event with the given data
   const CreateEvent = async (e) =>
     {
+      //e.preventDefault();
       let name = e.target.event_name.value;
       let description = e.target.description.value;
       let location = e.target.location.value;
@@ -137,6 +138,7 @@ export default function CreateEvent() {
   
       //go back to the homepage when finished
       history.push("/")
+      //window.location.reload();
 
       
     }
