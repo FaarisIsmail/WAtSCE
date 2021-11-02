@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
 import { Button } from '../components/Button'
-import QRCode from "react-qr-code"
+
+
 
 
 export default function Home1() {
