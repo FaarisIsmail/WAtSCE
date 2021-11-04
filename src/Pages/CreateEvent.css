@@ -18,6 +18,9 @@ h1 {
   margin: 20px;
   font-size: clamp(1em, 2vw, 2em);
   color: #ffff;
+  padding: 5px; 
+  border-bottom: 1px solid lightgray; 
+  margin: 20px;
 }
 
 div {

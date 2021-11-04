@@ -21,7 +21,7 @@ class Navbar extends React.Component {
         <hr /><hr /><hr /><hr /><hr /><hr /><hr /><hr />
 
         <a href="/">
-          <img src={logo} alt="logo_main" />
+          <img src={logo} alt="logo_main" width="150"/>
         </a>
 
         <hr /><hr /><hr /><hr /><hr /><hr />

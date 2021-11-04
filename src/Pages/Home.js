@@ -5,6 +5,9 @@ import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
 import { Button } from '../components/Button'
 
+
+
+
 export default function Home1() {
   const history = useHistory();
   const [events, setEvents] = useState([]); // List of all events
@@ -82,17 +85,17 @@ export default function Home1() {
       <h1>Events</h1>
       {events.map((event) => (
         <div key = {event.id}>
-          <div>{event.data().name}</div><br></br>
-          <div>{event.data().location}</div> <br></br>
-          <div>{event.data().description}</div> <br></br>
-          <div>{event.data().date_string}</div> <br></br>
-          <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
+          <div>Event name:  {event.data().name}</div><br></br>
+          <div>Location:    {event.data().location}</div> <br></br>
+          <div>Description:   {event.data().description}</div> <br></br>
+          <div>Date:  {event.data().date_string}</div> <br></br>
+          <div>Time:  {event.data().start_string} - {event.data().end_string}</div> <br></br>
 
           {!registrationExists(event.id) && auth.currentUser.uid != event.data().host_id &&
-            <button onClick={() => registerForEvent(event.id)}>Register</button>
+            <Button onClick={() => registerForEvent(event.id)}>Register</Button>  
           }
           {registrationExists(event.id) &&
-            <button onClick={() => cancelRegistration(event.id)}>Cancel Registration</button>
+            <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button>
           }
           <br></br><br></br><br></br><br></br>
         </div>
@@ -103,12 +106,12 @@ export default function Home1() {
         <div key = {event.id}>
           {registrationExists(event.id) &&
           <>
-          <div>{event.data().name}</div><br></br>
-          <div>{event.data().location}</div> <br></br>
-          <div>{event.data().description}</div> <br></br>
-          <div>{event.data().date_string}</div> <br></br>
-          <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
-          <button onClick={() => cancelRegistration(event.id)}>Cancel Registration</button><br></br><br></br><br></br><br></br></>}
+          <div>Event name:  {event.data().name}</div><br></br>
+          <div>Location:    {event.data().location}</div> <br></br>
+          <div>Description:   {event.data().description}</div> <br></br>
+          <div>Date:  {event.data().date_string}</div> <br></br>
+          <div>Time:  {event.data().start_string} - {event.data().end_string}</div> <br></br>
+          <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button><br></br><br></br><br></br><br></br></>}
         </div>
       ))}
     </div>
