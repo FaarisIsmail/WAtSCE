@@ -14,6 +14,7 @@ import Home from './Pages/Home';
 import calLottie from './lottie'
 import { RequestForm } from './Pages/RequestForm';
 import { Register } from './Pages/Register';
+import { Details } from './Pages/Details';
 
 
 
@@ -44,6 +45,7 @@ function Main() {
     <Route path="/create-event" component={CreateEvent} />
     <Route path="/" exact component={Home} />
     <Route path="/register" component={Register} />
+    <Route path="/details" component={Details} />
 
     </Router>
     
