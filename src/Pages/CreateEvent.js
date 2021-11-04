@@ -220,6 +220,7 @@ export default function CreateEvent() {
             <h1>Registration QR Code:</h1>
             <QRCode value={"https://cs1980.web.app/register/"+event.id} ></QRCode><br/><br/>
             <Button onClick={() => deleteEvent(event.id)}>Cancel Event</Button>
+            <Button onClick={() => window.location.href='/details/'+event.id}>Details</Button>
             <br></br><br></br><br></br><br></br>
           </div>
         ))}
