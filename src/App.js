@@ -20,7 +20,6 @@ import { Button } from './components/Button';
 
 
 
-
 function App() {
   const [user, loading] = useAuthState(auth);
   if (loading) { 
@@ -29,7 +28,7 @@ function App() {
   if (!user) {
     return <SignInScreen />
   }
-  if (!auth.currentUser.displayName) {
+  while (!auth.currentUser.displayName) {
     return (
       <div class="bodyForm">
         <form class = "form" onSubmit={setDisplayName}>

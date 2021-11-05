@@ -30,7 +30,7 @@ class Navbar extends React.Component {
         {/* <h1 className="navbar-logo">React<i className="fab fa-react"></i></h1> */}
         <div className="menu-icon" onClick={this.handleClick}>
           <p>≡</p>
-          <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+          {/* <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i> */}
         </div>
 
         <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
@@ -43,10 +43,11 @@ class Navbar extends React.Component {
               </li>
             )
           })}
+            <Button onClick={() => auth.signOut()}>Sign Out </Button> <br/>
         </ul>
-        <div class="signout-button">
+        {/* <div class="signout-button">
           <Button onClick={() => auth.signOut()}>Sign Out </Button>
-        </div>
+        </div> */}
       </nav>
     )
   }
