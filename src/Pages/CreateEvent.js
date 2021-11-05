@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Component } from 'react';
 import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
 import { Button } from '../components/Button';
 import QRCode from 'react-qr-code';
+import ImageWrapper from '../components/ImageWrapper';
 
+const saveSvgAsPng = require('save-svg-as-png');
+
+const imageOptions = {
+  scale: 5,
+  encoderOptions: 1,
+  backgroundColor: 'white',
+};
 
 
 export default function CreateEvent() {
@@ -218,7 +226,7 @@ export default function CreateEvent() {
             <div>{event.data().date_string}</div> <br></br>
             <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
             <h1>Registration QR Code:</h1>
-            <QRCode value={"https://cs1980.web.app/register/"+event.id} ></QRCode><br/><br/>
+            <QRCode id="123456" value={"https://cs1980.web.app/register/"+event.id} onClick={() => {saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+event.id+'.png', imageOptions);}}></QRCode><br/><br/>
             <Button onClick={() => deleteEvent(event.id)}>Cancel Event</Button>
             <Button onClick={() => window.location.href='/details/'+event.id}>Details</Button>
             <br></br><br></br><br></br><br></br>
