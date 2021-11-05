@@ -227,6 +227,8 @@ export default function CreateEvent() {
             <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
             <h1>Registration QR Code:</h1>
             <QRCode id="123456" value={"https://cs1980.web.app/register/"+event.id} onClick={() => {saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+event.id+'.png', imageOptions);}}></QRCode><br/><br/>
+            <Button onClick={() => {saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+event.id+'.png', imageOptions);}} >Download QR Code</Button>
+            <br/><br/>
             <Button onClick={() => deleteEvent(event.id)}>Cancel Event</Button>
             <Button onClick={() => window.location.href='/details/'+event.id}>Details</Button>
             <br></br><br></br><br></br><br></br>
