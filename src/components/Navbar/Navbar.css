@@ -96,18 +96,19 @@
   }
 
   .navbar-logo {
-    position: absolute;
+    /* position: bottom;
     top: 0;
     left: 0;
-    transform: translate(25%, 50%);
+    transform: translate(25%, 50%); */
+    display: none;
   }
 
   .menu-icon {
     display: block;
-    position: absolute;
+    position: bottom;
     top: 0;
     right: 0;
-    transform: translate(-100%, 60%);
+    transform: translate(-200%, 50%);
     font-size: 1.8rem;
     cursor: pointer;
   }
@@ -135,8 +136,11 @@
     color: #6568f4;
     transition: 250ms;
   }
-
-  Button {
+  .signout-button {
     display: none;
   }
+
+  /* Button {
+    display: none;
+  } */
 }

@@ -31,12 +31,13 @@ function App() {
   }
   if (!auth.currentUser.displayName) {
     return (
-      <div>
-        <h1>Welcome to WATSCE!</h1>
-        <h2>Please enter a display name</h2>
-        <form onSubmit={setDisplayName}>
-              <div>Enter your name:</div> <br></br>
-                  <input type="text" id="displayName" name="displayName"></input> <br></br>
+      <div class="bodyForm">
+        <form class = "form" onSubmit={setDisplayName}>
+              <h1 class="title">Welcome to WATSCE!</h1>
+              <h2 class="subtitle">Please enter a display name</h2>
+              <div class="input-container ic1"> 
+                <input class="input" type="text" id="displayName" name="displayName"></input> <br></br>
+              </div> <br></br>
                 <Button>Submit</Button>
             </form>
     </div>
