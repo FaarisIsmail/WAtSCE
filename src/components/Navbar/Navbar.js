@@ -26,7 +26,7 @@ class Navbar extends React.Component {
 
         <hr /><hr /><hr /><hr /><hr /><hr />
 
-        <h1 className="navbar-logo">Hello {auth.currentUser.displayName || auth.currentUser.phoneNumber || "Anonymous"}!</h1>
+        <h1 className="navbar-logo">Hello {auth.currentUser.displayName}!</h1>
         {/* <h1 className="navbar-logo">React<i className="fab fa-react"></i></h1> */}
         <div className="menu-icon" onClick={this.handleClick}>
           <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
