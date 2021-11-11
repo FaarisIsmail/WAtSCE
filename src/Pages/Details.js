@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router
 export function Details(){
 
     var eventid = window.location.href.toString().split("/").pop();
-    const [event, setEvent] = useState([]); 
+    const [event, setEvent] = useState("loading"); 
     const [registrations, setRegistrations] = useState([]);
     const history = useHistory();
     const registrationRef = firestore.collection("registrations").where("event_id", "==", eventid);
@@ -18,10 +18,10 @@ export function Details(){
         docRef.get().then((doc) => {
             if (doc.exists) {
                 console.log("Document data:", doc.data());
-                setEvent(doc.data().name)
+                setEvent(doc.data())
             } else {
                 console.log("No such document!");
-                setEvent(undefined);
+                setEvent("none");
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
@@ -45,11 +45,11 @@ export function Details(){
     }, []);
 
     
-    if (event !== undefined)
+    if ((event !== "none") && (event !== "loading"))
         return (
             <div>
                 <h1>Event Details</h1>
-                <div>Event Name: {event}</div>
+                <div>Event Name: {event.name}</div>
                 <h2>Registered Users:</h2>
                 {registrations.map((registration) => (
                     <div key = {registration.id}>
@@ -58,7 +58,13 @@ export function Details(){
                 ))}
             </div>
         );
-    else
+    else if (event === "none")
+    {
+        return (
+            <Redirect to="/"></Redirect>
+        );
+    }
+    else if (event === "loading")
         return (
             null
         );

@@ -4,7 +4,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import StyledFirebaseAuth from 'react-firebaseui/dist/StyledFirebaseAuth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
+import { BrowserRouter as Router, Link, useHistory, Redirect, Switch} from "react-router-dom";
 import Route from "react-router-dom/Route";
 import Navbar from "./components/Navbar/Navbar";
 import {auth, db, firestore, uiConfig} from './firebase.js'
@@ -16,6 +16,7 @@ import { RequestForm } from './Pages/RequestForm';
 import { Register } from './Pages/Register';
 import { Details } from './Pages/Details';
 import { Button } from './components/Button';
+import { useEffect, useState} from 'react';
 
 
 
@@ -48,18 +49,40 @@ function App() {
 }
 
 function Main() {
+  /*const [role, setRole] = useState([]); 
+
+  function getRole() {
+    var docRef = db.collection("users").doc(auth.currentUser.uid);
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            setRole(doc.data().role)
+        } else {
+            console.log("No such document!");
+            setRole("none");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    })
+}
+
+useEffect(() => {
+  getRole();
+}, []);*/
+
   return (
 
     <Router>
 
     <Navbar />
     
-    <Route path="/request_form" component={RequestForm} />
+    <Route exact path="/request_form" component={RequestForm} />
     <Route path="/about" component={About} />
     <Route path="/create-event" component={CreateEvent} />
     <Route path="/" exact component={Home} />
     <Route path="/register" component={Register} />
     <Route path="/details" component={Details} />
+    
 
     </Router>
 
