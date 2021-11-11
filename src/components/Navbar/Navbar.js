@@ -21,15 +21,16 @@ class Navbar extends React.Component {
         <hr /><hr /><hr /><hr /><hr /><hr /><hr /><hr />
 
         <a href="/">
-          <img src={logo} alt="logo_main" width="150"/>
+          <img className="nav-icon" src={logo} alt="logo_main" width="150"/>
         </a>
 
         <hr /><hr /><hr /><hr /><hr /><hr />
 
-        <h1 className="navbar-logo">Hello {auth.currentUser.displayName || auth.currentUser.phoneNumber || "Anonymous"}!</h1>
+        <h1 className="navbar-logo">Hello {auth.currentUser.displayName}!</h1>
         {/* <h1 className="navbar-logo">React<i className="fab fa-react"></i></h1> */}
         <div className="menu-icon" onClick={this.handleClick}>
-          <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+          <p>≡</p>
+          {/* <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i> */}
         </div>
 
         <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
@@ -42,8 +43,11 @@ class Navbar extends React.Component {
               </li>
             )
           })}
+            <Button onClick={() => auth.signOut()}>Sign Out </Button> <br/>
         </ul>
+        {/* <div class="signout-button">
           <Button onClick={() => auth.signOut()}>Sign Out </Button>
+        </div> */}
       </nav>
     )
   }

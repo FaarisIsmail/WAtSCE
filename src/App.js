@@ -15,7 +15,7 @@ import calLottie from './lottie'
 import { RequestForm } from './Pages/RequestForm';
 import { Register } from './Pages/Register';
 import { Details } from './Pages/Details';
-
+import { Button } from './components/Button';
 
 
 
@@ -25,15 +25,29 @@ function App() {
   if (loading) { 
     return null
   }
+  if (!user) {
+    return <SignInScreen />
+  }
+  while (!auth.currentUser.displayName) {
+    return (
+      <div class="bodyForm">
+        <form class = "form" onSubmit={setDisplayName}>
+              <h1 class="title">Welcome to WATSCE!</h1>
+              <h2 class="subtitle">Please enter a display name</h2>
+              <div class="input-container ic1"> 
+                <input class="input" type="text" id="displayName" name="displayName"></input> <br></br>
+              </div> <br></br>
+                <Button>Submit</Button>
+            </form>
+    </div>
+    )
+  }
   return (
-    <header>
-      {user ? <Main /> : <SignInScreen />}
-    </header>
-  );
+    <Main />
+  )
 }
 
 function Main() {
-  const history = useHistory();
   return (
 
     <Router>
@@ -48,7 +62,7 @@ function Main() {
     <Route path="/details" component={Details} />
 
     </Router>
-    
+
   );
 }
 
@@ -62,6 +76,16 @@ function SignInScreen() {
         <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
       </div>
     );
+}
+
+function setDisplayName(event) {
+  auth.currentUser.updateProfile({
+    displayName: event.target.displayName.value
+  }).then(() => {
+    console.log("Displayname successfully updated!")
+  }).catch((error) => {
+    console.log("Displayname could not be updated!")
+  });
 }
 
 
