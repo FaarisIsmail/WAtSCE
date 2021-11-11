@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router
 
 export function Register(){
 
-    const [event, setEvent] = useState([]); 
+    const [event, setEvent] = useState("loading"); 
     var eventid = window.location.href.toString().split("/").pop();
     const history = useHistory();
   
@@ -18,7 +18,7 @@ export function Register(){
                 setEvent(doc.data().name)
             } else {
                 console.log("No such document!");
-                setEvent("Invalid Event!");
+                setEvent("none");
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
@@ -49,23 +49,34 @@ export function Register(){
       }
     
 
-    return (
-        <div>
-        <p>
-            This is the unique event ID appended after the URL: <br/><br/>
-            {eventid}
-        </p>
-        <form onSubmit={handleSubmit}>
-            <div>Enter your name</div> <br/>
-            <input type="text" id="name" name="name" value={auth.currentUser.displayName} ></input><br/><br/>
-            <div>Enter your phone number</div> <br/>
-            <input type="text" id="phone" name="phone" value={auth.currentUser.phoneNumber} ></input><br/><br/>
-            <div>Event Name</div> <br></br>
-            <input type="text" id="event_id" name="event_id" value={event} disabled></input> <br/><br/>
-            <input type="submit" value="Submit" />
-        </form>
-    </div>
-    )
+    if ((event !== "none") && (event !== "loading"))
+        return (
+            <div>
+            <p>
+                This is the unique event ID appended after the URL: <br/><br/>
+                {eventid}
+            </p>
+            <form onSubmit={handleSubmit}>
+                <div>Enter your name</div> <br/>
+                <input type="text" id="name" name="name" value={auth.currentUser.displayName} ></input><br/><br/>
+                <div>Enter your phone number</div> <br/>
+                <input type="text" id="phone" name="phone" value={auth.currentUser.phoneNumber} ></input><br/><br/>
+                <div>Event Name</div> <br></br>
+                <input type="text" id="event_id" name="event_id" value={event} disabled></input> <br/><br/>
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+        )
+    else if (event === "none")
+    {
+        return (
+            <Redirect to="/"></Redirect>
+        );
+    }
+    else if (event === "loading")
+        return (
+            null
+        );
 
 
 }

@@ -1,9 +1,29 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {auth, db} from '../firebase.js'
-import {useHistory} from "react-router-dom";
+import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 
 export function RequestForm() {
     const history = useHistory();
+    const [role, setRole] = useState("loading"); 
+
+    function getRole() {
+      var docRef = db.collection("users").doc(auth.currentUser.uid);
+      docRef.get().then((doc) => {
+          if (doc.exists) {
+              console.log("Document data:", doc.data());
+              setRole(doc.data().role)
+          } else {
+              console.log("No such document!");
+              setRole("none");
+          }
+      }).catch((error) => {
+          console.log("Error getting document:", error);
+      })
+    }
+
+    useEffect(() => {
+      getRole();
+    }, []);
   
     //function called when request form is submitted
     //creates a new request document w/ the data from the request form
@@ -35,6 +55,7 @@ export function RequestForm() {
       history.push('/');
     }
   
+    if (role === "student")
       return (
         <div>
            <form onSubmit={RequestAccess}>
@@ -46,5 +67,17 @@ export function RequestForm() {
             </form>
         </div>
         )
+    else if (role === "loading")
+    {
+      return (
+        null
+      );
+    }
+    else
+    {
+      return (
+        <Redirect to="/"></Redirect>
+      )
+    }
   }
   
