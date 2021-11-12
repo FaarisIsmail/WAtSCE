@@ -4,7 +4,7 @@ import {auth, db, firestore} from '../firebase.js';
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 
 
-export function Register(){
+export function Checkin(){
 
     const [event, setEvent] = useState("loading"); 
     var eventid = window.location.href.toString().split("/").pop();

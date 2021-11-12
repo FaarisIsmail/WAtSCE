@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
 import { Button } from '../components/Button'
@@ -7,8 +6,7 @@ import { Button } from '../components/Button'
 
 
 
-export default function Home1() {
-  const history = useHistory();
+export default function Schedule() {
   const [events, setEvents] = useState([]); // List of all events
   const [registrations, setRegistrations] = useState([]); //List of registrations for current user
   const ref = firestore.collection("events").orderBy("start");
@@ -35,17 +33,6 @@ export default function Home1() {
         items.push(doc);
       });
       setRegistrations(items);
-    })
-  }
-
-  //create a new registration entry for the given event id and current user id
-  //the id for this new registration entry is <eventId>_<userId>, and it contains
-  //the event and user id's as data fields
-  function registerForEvent(id)
-  {
-    db.collection("registrations").doc(id + "_" + auth.currentUser.uid).set({
-      user_id: auth.currentUser.uid,
-      event_id: id
     })
   }
 
@@ -81,22 +68,17 @@ export default function Home1() {
   //TODO: if the user is the host, the "cancel event" button will be shown
   return (
     <div>
-      <h1>Events</h1>
+      <h1>My Schedule</h1>
       {events.map((event) => (
         <div key = {event.id}>
+          {registrationExists(event.id) &&
+          <>
           <div>Event name:  {event.data().name}</div><br></br>
           <div>Location:    {event.data().location}</div> <br></br>
           <div>Description:   {event.data().description}</div> <br></br>
           <div>Date:  {event.data().date_string}</div> <br></br>
           <div>Time:  {event.data().start_string} - {event.data().end_string}</div> <br></br>
-
-          {!registrationExists(event.id) && auth.currentUser.uid != event.data().host_id &&
-            <Button onClick={() => registerForEvent(event.id)}>Register</Button>  
-          }
-          {registrationExists(event.id) &&
-            <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button>
-          }
-          <br></br><br></br><br></br><br></br>
+          <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button><br></br><br></br><br></br><br></br></>}
         </div>
       ))}
     </div>

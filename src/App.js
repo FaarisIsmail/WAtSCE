@@ -13,8 +13,9 @@ import CreateEvent from './Pages/CreateEvent';
 import Home from './Pages/Home';
 import calLottie from './lottie'
 import { RequestForm } from './Pages/RequestForm';
-import { Register } from './Pages/Register';
+import { Checkin } from './Pages/Checkin';
 import { Details } from './Pages/Details';
+import Schedule from './Pages/Schedule';
 import { Button } from './components/Button';
 import { useEffect, useState} from 'react';
 
@@ -80,7 +81,8 @@ useEffect(() => {
     <Route path="/about" component={About} />
     <Route path="/create-event" component={CreateEvent} />
     <Route path="/" exact component={Home} />
-    <Route path="/register" component={Register} />
+    <Route path="/checkin" component={Checkin} />
+    <Route path="/schedule" component={Schedule} />
     <Route path="/details" component={Details} />
     
 
