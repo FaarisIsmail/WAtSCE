@@ -6,8 +6,19 @@ import './CreateEvent.css';
 import { Button } from '../components/Button';
 import QRCode from 'react-qr-code';
 import ImageWrapper from '../components/ImageWrapper';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+//import { toast } from 'react-toastify/dist/components';
 
 const saveSvgAsPng = require('save-svg-as-png');
+
+const notify = () => {
+  toast.success("Hello!",
+  {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 5000,
+  });
+}
 
 const imageOptions = {
   scale: 5,
@@ -15,6 +26,7 @@ const imageOptions = {
   backgroundColor: 'white',
 };
 
+//const notify = () => toast("Event has been created!");
 
 export default function CreateEvent() {
   const history = useHistory();
@@ -108,7 +120,8 @@ export default function CreateEvent() {
   //creates an event with the given data
   const CreateEvent = async (e) =>
     {
-      //e.preventDefault();
+      
+      e.preventDefault();
       let name = e.target.event_name.value;
       let description = e.target.description.value;
       let location = e.target.location.value;
@@ -139,16 +152,21 @@ export default function CreateEvent() {
       })
       .then(() => {
         console.log("Document successfully written!");
+        toast.success("Event \"" + name + "\" has been created",
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 5000,
+        });
       })
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
-  
-      //go back to the homepage when finished
-      history.push("/")
-      //window.location.reload();
 
+      //notify();
       
+      //go back to the homepage when finished
+      //history.push("/")
+      //window.location.reload();
     }
 
     //deletes the event and all associated user registrations
