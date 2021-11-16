@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
 import EventList from '../components/Events/EventList';
 
-export default function Home1() {
+export default function Schedule() {
   
   const [events, setEvents] = useState([]); // List of all events
   const [registrations, setRegistrations] = useState([]); //List of registrations for current user
   const ref = firestore.collection("events").orderBy("start");
   const registrationRef = firestore.collection("registrations").where("user_id", "==", auth.currentUser.uid);
-  const allEvents = [];
+  const myEvents = [];
 
-  // Put event entries from database in the "events" local state
+  //put event entries from database in the "events" local state
   function getEvents() {
     ref.onSnapshot((querySnapshot) => {
       const items = [];
@@ -24,7 +23,7 @@ export default function Home1() {
     })
   }
 
-  // Put registration entries for the current user in the "registrations" local state
+  //put registration entries for the current user in the "registrations" local state
   function getRegistrations() {
     registrationRef.onSnapshot((querySnapshot) => {
       const items = [];
@@ -36,19 +35,45 @@ export default function Home1() {
     })
   }
 
+  //return true if the user is currently registered for the given event, and false if otherwise
+  function registrationExists(event_id)
+  {
+    let registration = registrations.find(r => r.id === event_id + "_" + auth.currentUser.uid);
+    if (registration == undefined)
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+
+  }
+
+  //delete the given registration entry
+  function cancelRegistration(event_id)
+  {
+    db.collection("registrations").doc(event_id + "_" + auth.currentUser.uid).delete();
+  }
+
   useEffect(() => {
     getEvents();
     getRegistrations();
   }, []);
 
-  // Returns a list of all events
-  // if the user is not registered for an event or is not the host, the "register" button will be shown
-  // if the user is registered for the event, the "cancel registration" button will be shown
-  // TODO: if the user is the host, the "cancel event" button will be shown
+  //returns a list of all events
+  //if the user is not registered for an event or is not the host, the "register" button will be shown
+  //if the user is registered for the event, the "cancel registration" button will be shown
+  //TODO: if the user is the host, the "cancel event" button will be shown
   return (
     <div>
-      <h1>Scheduled Events</h1>
+      <h1>My Schedule</h1>
+
       {events.forEach(event => {
+
+        if (!registrationExists(event.id)) {
+          return;
+        }
 
         const curEvent = {
           id: event.id,
@@ -61,9 +86,10 @@ export default function Home1() {
           endTime: event.data().end_string
         }
 
-        allEvents.push(curEvent);
+        myEvents.push(curEvent);
       })}
-      <EventList events={allEvents} registrations={registrations}/>
+
+      <EventList events={myEvents} registrations={registrations}/>
     </div>
   )
 }
