@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
-import { Button } from '../components/Button'
-
-
-
+import EventList from '../components/Events/EventList';
 
 export default function Schedule() {
+  
   const [events, setEvents] = useState([]); // List of all events
   const [registrations, setRegistrations] = useState([]); //List of registrations for current user
   const ref = firestore.collection("events").orderBy("start");
   const registrationRef = firestore.collection("registrations").where("user_id", "==", auth.currentUser.uid);
+  const myEvents = [];
 
   //put event entries from database in the "events" local state
   function getEvents() {
@@ -69,18 +68,28 @@ export default function Schedule() {
   return (
     <div>
       <h1>My Schedule</h1>
-      {events.map((event) => (
-        <div key = {event.id}>
-          {registrationExists(event.id) &&
-          <>
-          <div>Event name:  {event.data().name}</div><br></br>
-          <div>Location:    {event.data().location}</div> <br></br>
-          <div>Description:   {event.data().description}</div> <br></br>
-          <div>Date:  {event.data().date_string}</div> <br></br>
-          <div>Time:  {event.data().start_string} - {event.data().end_string}</div> <br></br>
-          <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button><br></br><br></br><br></br><br></br></>}
-        </div>
-      ))}
+
+      {events.forEach(event => {
+
+        if (!registrationExists(event.id)) {
+          return;
+        }
+
+        const curEvent = {
+          id: event.id,
+          host_id: event.data().host_id,
+          name: event.data().name,
+          location: event.data().location,
+          description: event.data().description,
+          date: event.data().date_string,
+          startTime: event.data().start_string,
+          endTime: event.data().end_string
+        }
+
+        myEvents.push(curEvent);
+      })}
+
+      <EventList events={myEvents} registrations={registrations}/>
     </div>
   )
 }

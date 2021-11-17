@@ -2,20 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
-import { Button } from '../components/Button'
-
-
-
+import EventList from '../components/Events/EventList';
 
 export default function Home1() {
-  const history = useHistory();
+  
   const [events, setEvents] = useState([]); // List of all events
   const [registrations, setRegistrations] = useState([]); //List of registrations for current user
   const ref = firestore.collection("events").orderBy("start");
   const registrationRef = firestore.collection("registrations").where("user_id", "==", auth.currentUser.uid);
-  
+  const allEvents = [];
 
-  //put event entries from database in the "events" local state
+  // Put event entries from database in the "events" local state
   function getEvents() {
     ref.onSnapshot((querySnapshot) => {
       const items = [];
@@ -27,7 +24,7 @@ export default function Home1() {
     })
   }
 
-  //put registration entries for the current user in the "registrations" local state
+  // Put registration entries for the current user in the "registrations" local state
   function getRegistrations() {
     registrationRef.onSnapshot((querySnapshot) => {
       const items = [];
@@ -39,67 +36,34 @@ export default function Home1() {
     })
   }
 
-  //create a new registration entry for the given event id and current user id
-  //the id for this new registration entry is <eventId>_<userId>, and it contains
-  //the event and user id's as data fields
-  function registerForEvent(id)
-  {
-    db.collection("registrations").doc(id + "_" + auth.currentUser.uid).set({
-      user_id: auth.currentUser.uid,
-      event_id: id
-    })
-  }
-
-  //return true if the user is currently registered for the given event, and false if otherwise
-  function registrationExists(event_id)
-  {
-    let registration = registrations.find(r => r.id === event_id + "_" + auth.currentUser.uid);
-    if (registration == undefined)
-    {
-      return false;
-    }
-    else
-    {
-      return true;
-    }
-
-  }
-
-  //delete the given registration entry
-  function cancelRegistration(event_id)
-  {
-    db.collection("registrations").doc(event_id + "_" + auth.currentUser.uid).delete();
-  }
-
   useEffect(() => {
     getEvents();
     getRegistrations();
   }, []);
 
-  //returns a list of all events
-  //if the user is not registered for an event or is not the host, the "register" button will be shown
-  //if the user is registered for the event, the "cancel registration" button will be shown
-  //TODO: if the user is the host, the "cancel event" button will be shown
+  // Returns a list of all events
+  // if the user is not registered for an event or is not the host, the "register" button will be shown
+  // if the user is registered for the event, the "cancel registration" button will be shown
+  // TODO: if the user is the host, the "cancel event" button will be shown
   return (
     <div>
-      <h1>Events</h1>
-      {events.map((event) => (
-        <div key = {event.id}>
-          <div>Event name:  {event.data().name}</div><br></br>
-          <div>Location:    {event.data().location}</div> <br></br>
-          <div>Description:   {event.data().description}</div> <br></br>
-          <div>Date:  {event.data().date_string}</div> <br></br>
-          <div>Time:  {event.data().start_string} - {event.data().end_string}</div> <br></br>
+      <h1>Scheduled Events</h1>
+      {events.forEach(event => {
 
-          {!registrationExists(event.id) && auth.currentUser.uid != event.data().host_id &&
-            <Button onClick={() => registerForEvent(event.id)}>Register</Button>  
-          }
-          {registrationExists(event.id) &&
-            <Button onClick={() => cancelRegistration(event.id)}>Cancel Registration</Button>
-          }
-          <br></br><br></br><br></br><br></br>
-        </div>
-      ))}
+        const curEvent = {
+          id: event.id,
+          host_id: event.data().host_id,
+          name: event.data().name,
+          location: event.data().location,
+          description: event.data().description,
+          date: event.data().date_string,
+          startTime: event.data().start_string,
+          endTime: event.data().end_string
+        }
+
+        allEvents.push(curEvent);
+      })}
+      <EventList events={allEvents} registrations={registrations}/>
     </div>
   )
 }
