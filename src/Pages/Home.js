@@ -13,6 +13,7 @@ export default function Home1() {
   const [registrations, setRegistrations] = useState([]); //List of registrations for current user
   const ref = firestore.collection("events").orderBy("start");
   const registrationRef = firestore.collection("registrations").where("user_id", "==", auth.currentUser.uid);
+  
 
   //put event entries from database in the "events" local state
   function getEvents() {
