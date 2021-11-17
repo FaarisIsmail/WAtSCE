@@ -88,7 +88,7 @@ useEffect(() => {
 
       </Router>
 
-      <ToastContainer theme="dark"/>
+      <ToastContainer theme="dark" limit={3}/>
     </>
 
     

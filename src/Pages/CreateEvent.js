@@ -138,30 +138,45 @@ export default function CreateEvent() {
       let user = auth.currentUser;
       let uid = user.uid;
   
-      //create the event document in firestore
-      db.collection("events").doc().set({
-        name: name,
-        description: description,
-        host_id: uid,
-        location: location,
-        start: Timestamp.fromDate(s_date),
-        end: Timestamp.fromDate(e_date),
-        start_string: s_date.toLocaleTimeString("en-US"),
-        end_string: e_date.toLocaleTimeString("en-US"),
-        date_string: s_date.toDateString()
-      })
-      .then(() => {
-        console.log("Document successfully written!");
-        toast.success("Event \"" + name + "\" has been created",
+      if (name === "" || description === "" || location === "" || start_date === " " || end_date === " ")
+      {
+        toast.error("Failed to create event.  Please fill out all fields.",
         {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 5000,
         });
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
-
+      }
+      else
+      {
+        //create the event document in firestore
+        db.collection("events").doc().set({
+          name: name,
+          description: description,
+          host_id: uid,
+          location: location,
+          start: Timestamp.fromDate(s_date),
+          end: Timestamp.fromDate(e_date),
+          start_string: s_date.toLocaleTimeString("en-US"),
+          end_string: e_date.toLocaleTimeString("en-US"),
+          date_string: s_date.toDateString()
+        })
+        .then(() => {
+          console.log("Document successfully written!");
+          toast.success("Event \"" + name + "\" has been created",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 5000,
+          });
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+          toast.error("Failed to create event.",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 5000,
+          });
+        });
+      }
       //notify();
       
       //go back to the homepage when finished
@@ -218,7 +233,7 @@ export default function CreateEvent() {
   {
     return (
       <div>
-        <h1>Host Homepage</h1>
+        <h1>Create an Event</h1>
           <form onSubmit={CreateEvent}>
             <div>Enter the event name:</div> <br></br>
             <input type="text" id="event_name" name="event_name"></input> <br></br><br></br>
