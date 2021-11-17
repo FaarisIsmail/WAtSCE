@@ -50,12 +50,6 @@ export default function Schedule() {
 
   }
 
-  //delete the given registration entry
-  function cancelRegistration(event_id)
-  {
-    db.collection("registrations").doc(event_id + "_" + auth.currentUser.uid).delete();
-  }
-
   useEffect(() => {
     getEvents();
     getRegistrations();
