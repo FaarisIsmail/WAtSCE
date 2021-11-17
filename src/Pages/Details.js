@@ -46,18 +46,27 @@ export function Details(){
 
     
     if ((event !== "none") && (event !== "loading"))
-        return (
-            <div>
-                <h1>Event Details</h1>
-                <div>Event Name: {event.name}</div>
-                <h2>Registered Users:</h2>
-                {registrations.map((registration) => (
-                    <div key = {registration.id}>
-                        <div>{registration.data().user_id}</div><br></br>
-                    </div>
-                ))}
-            </div>
-        );
+    {
+        if (event.host_id === auth.currentUser.uid)
+        {
+            return (
+                <div>
+                    <h1>Event Details</h1>
+                    <div>Event Name: {event.name}</div>
+                    <h2>Registered Users:</h2>
+                    {registrations.map((registration) => (
+                        <div key = {registration.id}>
+                            <div>{registration.data().user_id}</div><br></br>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+        else
+            return (
+                <Redirect to="/"></Redirect>
+            )
+    }
     else if (event === "none")
     {
         return (

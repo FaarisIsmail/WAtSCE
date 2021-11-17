@@ -1,6 +1,8 @@
 import React from 'react';
 import {auth, db, firestore} from '../../firebase.js';
 import { Button } from '../Button'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Event({ id, host_id, name, location, description, date, 
   startTime, endTime, registrations }) {
@@ -13,6 +15,12 @@ export default function Event({ id, host_id, name, location, description, date,
       user_id: auth.currentUser.uid,
       event_id: id
     })
+
+    toast.success("You have been registered for " + name,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 5000,
+          });
   }
 
   // Return true if the user is currently registered for the given event, and false if otherwise
@@ -28,6 +36,12 @@ export default function Event({ id, host_id, name, location, description, date,
   //delete the given registration entry
   function cancelRegistration(event_id) {
     db.collection("registrations").doc(event_id + "_" + auth.currentUser.uid).delete();
+
+    toast.success("Your registration for " + name + " has been cancelled",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 5000,
+          });
   }
 
   return (
