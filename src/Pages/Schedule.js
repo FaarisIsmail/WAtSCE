@@ -83,7 +83,7 @@ export default function Schedule() {
         myEvents.push(curEvent);
       })}
 
-      <EventList events={myEvents} registrations={registrations}/>
+      <EventList events={myEvents} registrations={registrations} hostEvents={false}/>
     </div>
   )
 }

@@ -63,7 +63,7 @@ export default function Home1() {
 
         allEvents.push(curEvent);
       })}
-      <EventList events={allEvents} registrations={registrations}/>
+      <EventList events={allEvents} registrations={registrations} hostEvents={false}/>
     </div>
   )
 }

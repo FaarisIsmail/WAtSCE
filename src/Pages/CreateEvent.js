@@ -4,14 +4,13 @@ import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router
 import {auth, db, firestore} from '../firebase.js'
 import './CreateEvent.css';
 import { Button } from '../components/Button';
-import QRCode from 'react-qr-code';
 import ImageWrapper from '../components/ImageWrapper';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import { toast } from 'react-toastify/dist/components';
 import CreateEventForm  from '../components/Events/CreateEventForm';
+import EventList from '../components/Events/EventList';
 
-const saveSvgAsPng = require('save-svg-as-png');
 
 const notify = () => {
   toast.success("Hello!",
@@ -20,12 +19,6 @@ const notify = () => {
     autoClose: 5000,
   });
 }
-
-const imageOptions = {
-  scale: 5,
-  encoderOptions: 1,
-  backgroundColor: 'white',
-};
 
 //const notify = () => toast("Event has been created!");
 
@@ -37,9 +30,10 @@ export default function CreateEvent() {
   const [requests, setRequests] = useState([]); // List of requests
   const [events, setEvents] = useState([]); //List of events that the user is hosting
 
-
   const ref = firestore.collection("requests");
   const eventRef = firestore.collection("events").where("host_id", "==", auth.currentUser.uid);
+
+  const createdEvents = [];
 
   //put request entries from database in the "requests" local state
   function getRequests() {
@@ -116,16 +110,6 @@ export default function CreateEvent() {
     db.collection("requests").doc(uid).delete();
   }
 
-  //deletes the event and all associated user registrations
-  function deleteEvent(event_id) {
-      db.collection("events").doc(event_id).delete();
-      
-      //TODO: delete all registrations where event_id = the event_id for the event which we are deleting
-
-      //apparantly it is better to delete subcollections using the Firebase CLI, but our number of users
-      //might be small enough for it to not matter
-  }
-
   // Listen to the Firebase Auth state and set the local state.
   useEffect(() => {
     const unregisterAuthObserver = auth.onAuthStateChanged(user => {
@@ -164,25 +148,25 @@ export default function CreateEvent() {
   {
     return (
       <div>
+        {events.forEach(event => {
+
+          const curEvent = {
+            id: event.id,
+            host_id: event.data().host_id,
+            name: event.data().name,
+            location: event.data().location,
+            description: event.data().description,
+            date: event.data().date_string,
+            startTime: event.data().start_string,
+            endTime: event.data().end_string
+          }
+
+          createdEvents.push(curEvent);
+        })}
+
         <CreateEventForm />
-          <br/><br/>
-          <h1>Your Events</h1>
-          {events.map((event) => (
-          <div key = {event.name}>
-            <div>{event.data().name}</div><br></br>
-            <div>{event.data().location}</div> <br></br>
-            <div>{event.data().description}</div> <br></br>
-            <div>{event.data().date_string}</div> <br></br>
-            <div>{event.data().start_string} - {event.data().end_string}</div> <br></br>
-            <h1>Registration QR Code:</h1>
-            <QRCode id="123456" value={"https://watsce.tech/checkin/"+event.id} onClick={() => {saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+event.id+'.png', imageOptions);}}></QRCode><br/><br/>
-            <Button onClick={() => {saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+event.id+'.png', imageOptions);}} >Download QR Code</Button>
-            <br/><br/>
-            <Button onClick={() => deleteEvent(event.id)}>Cancel Event</Button>
-            <Button onClick={() => window.location.href='/details/'+event.id}>Details</Button>
-            <br></br><br></br><br></br><br></br>
-          </div>
-        ))}
+        <EventList events={createdEvents} registrations={[]} hostEvents={true} />
+
       </div>
     );
   }
