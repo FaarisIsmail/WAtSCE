@@ -9,9 +9,11 @@ export function Details(){
     var eventid = window.location.href.toString().split("/").pop();
     const [event, setEvent] = useState("loading"); 
     const [registrations, setRegistrations] = useState([]);
+    const [checkins, setCheckins] = useState([]);
     const history = useHistory();
     const registrationRef = firestore.collection("registrations").where("event_id", "==", eventid);
     const docRef = db.collection("events").doc(eventid);
+    const checkinRef = db.collection("events").doc(eventid).collection("checkedin");
 
     function getEvent() {
         
@@ -39,9 +41,42 @@ export function Details(){
         })
       }
 
+      function getCheckins() {
+        checkinRef.onSnapshot((querySnapshot) => {
+            const items = [];
+            querySnapshot.forEach((doc) => {
+              //items.push(doc.data());
+              items.push(doc);
+            });
+            setCheckins(items);
+          })
+      }
+
+      function isCheckedIn (user_id)
+      {
+        let checkin = checkins.find(r => r.id === user_id);
+
+        console.log("checkin: " + checkin);
+        
+        if (checkin !== undefined)
+        {
+            if (checkin.data().checkedin)
+            {
+                return "has been checked in";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        return "";
+      }
+
     useEffect(() => {
       getEvent();
       getRegistrations();
+      getCheckins();
     }, []);
 
     
@@ -56,7 +91,7 @@ export function Details(){
                     <h2>Registered Users:</h2>
                     {registrations.map((registration) => (
                         <div key = {registration.id}>
-                            <div>{registration.data().user_id}</div><br></br>
+                            <div>{registration.data().user_id + " " + isCheckedIn(registration.data().user_id)}</div><br></br>
                         </div>
                     ))}
                 </div>
