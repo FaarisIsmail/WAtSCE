@@ -16,11 +16,17 @@ export default function Event({ id, host_id, name, location, description, date,
       event_id: id
     })
 
+    //db.collection(eventid).collection()
+
     toast.success("You have been registered for " + name,
           {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 5000,
           });
+
+    db.collection("events").doc(event_id).collection("checkedin").doc(auth.currentUser.uid).set({
+      checkedin: false
+    })
   }
 
   // Return true if the user is currently registered for the given event, and false if otherwise
@@ -36,6 +42,7 @@ export default function Event({ id, host_id, name, location, description, date,
   //delete the given registration entry
   function cancelRegistration(event_id) {
     db.collection("registrations").doc(event_id + "_" + auth.currentUser.uid).delete();
+    db.collection("events").doc(event_id).collection("checkedin").doc(auth.currentUser.uid).delete()
 
     toast.success("Your registration for " + name + " has been cancelled",
           {
@@ -54,7 +61,7 @@ export default function Event({ id, host_id, name, location, description, date,
       <div>Time:  {startTime} - {endTime}</div> <br></br>
 
       {!registrationExists(id) && auth.currentUser.uid != host_id &&
-        <Button onClick={() => registerForEvent(id)}>Register</Button>  
+        <Button onClick={() => registerForEvent(id)}>Register</Button>
       }
       {registrationExists(id) &&
         <Button onClick={() => cancelRegistration(id)}>Cancel Registration</Button>
