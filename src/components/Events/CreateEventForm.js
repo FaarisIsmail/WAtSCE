@@ -56,6 +56,14 @@ export default function CreateEventForm() {
         date_string: s_date.toDateString()
       })
       .then(() => {
+        // Reset input form to default of empty
+        document.getElementById("event_name").value = "";
+        document.getElementById("location").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("date").value = "";
+        document.getElementById("start").value = "";
+        document.getElementById("end").value = "";
+
         console.log("Document successfully written!");
         toast.success("Event \"" + name + "\" has been created",
         {
