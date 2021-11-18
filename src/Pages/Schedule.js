@@ -50,12 +50,6 @@ export default function Schedule() {
 
   }
 
-  //delete the given registration entry
-  function cancelRegistration(event_id)
-  {
-    db.collection("registrations").doc(event_id + "_" + auth.currentUser.uid).delete();
-  }
-
   useEffect(() => {
     getEvents();
     getRegistrations();
@@ -89,7 +83,7 @@ export default function Schedule() {
         myEvents.push(curEvent);
       })}
 
-      <EventList events={myEvents} registrations={registrations}/>
+      <EventList events={myEvents} registrations={registrations} hostEvents={false}/>
     </div>
   )
 }

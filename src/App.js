@@ -4,10 +4,10 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import StyledFirebaseAuth from 'react-firebaseui/dist/StyledFirebaseAuth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { BrowserRouter as Router, Link, useHistory, Redirect, Switch} from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import Route from "react-router-dom/Route";
 import Navbar from "./components/Navbar/Navbar";
-import {auth, db, firestore, uiConfig} from './firebase.js'
+import {auth, uiConfig} from './firebase.js'
 import About from './Pages/About';
 import CreateEvent from './Pages/CreateEvent';
 import Home from './Pages/Home';
@@ -20,10 +20,11 @@ import { Button } from './components/Button';
 import { useEffect, useState} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from './components/Navbar/logo7.png';
 
 toast.configure();
 
-function App() {
+function App() {  
   const [user, loading] = useAuthState(auth);
 
   if (loading) { 
@@ -32,7 +33,8 @@ function App() {
   if (!user) {
     return <SignInScreen />
   }
-  while (!auth.currentUser.displayName) {
+  if (!auth.currentUser.displayName) {
+    console.log(auth.currentUser.displayName)
     return (
       <div class="bodyForm">
         <form class = "form" onSubmit={setDisplayName}>
@@ -49,6 +51,8 @@ function App() {
   return (
     <Main />
   )
+  
+
 }
 
 function Main() {
@@ -99,7 +103,7 @@ function SignInScreen() {
   
     return (
       <div className="App">
-        <h1>WATSCE</h1>
+        <img className="nav-icon" src={logo} alt="logo_main" width="250"/>
         {calLottie()}
         <p>Please sign-in:</p>
         <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
@@ -108,14 +112,18 @@ function SignInScreen() {
 }
 
 function setDisplayName(event) {
+  event.preventDefault();
   auth.currentUser.updateProfile({
     displayName: event.target.displayName.value
   }).then(() => {
     console.log("Displayname successfully updated!")
+    window.location.reload(false)
   }).catch((error) => {
     console.log("Displayname could not be updated!")
   });
+  console.log(auth.currentUser.displayName)
 }
+
 
 
 
