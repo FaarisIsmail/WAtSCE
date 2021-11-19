@@ -79,8 +79,8 @@ export default function Event({ id, host_id, name, location, description, date,
           }}></QRCode><br/><br/>
           <Button onClick={() => {
             saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+id+'.png', imageOptions);
-          }} >Download QR Code</Button>
-          <Button onClick={() => deleteEvent(id)}>Cancel Event</Button>
+          }} >Download QR Code</Button> <br/> <br/>
+          <Button onClick={() => deleteEvent(id)}>Cancel Event</Button> &nbsp;
           <Button onClick={() => window.location.href='/details/'+id}>Details</Button>
         </div>
       )

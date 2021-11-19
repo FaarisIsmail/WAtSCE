@@ -14,7 +14,7 @@ export function Checkin(){
         history.push("/")
     },[])
     return (
-        <p> test</p>
+        null
     )
 
 }
