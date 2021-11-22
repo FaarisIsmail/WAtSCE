@@ -13,6 +13,12 @@ const imageOptions = {
   backgroundColor: 'white',
 };
 
+const eventStyle = {
+  padding: '20px',
+  display: 'inline-block',
+  textAlign: 'center',
+}
+
 export default function Event({ id, host_id, name, location, description, date, 
   startTime, endTime, registrations, hostEvents }) {
 
@@ -90,7 +96,7 @@ export default function Event({ id, host_id, name, location, description, date,
   }
 
   return (
-    <>
+    <div style={eventStyle}>
       <br/><br/><br/>
       <div>Event name:  {name}</div><br/>
       <div>Location:    {location}</div> <br/>
@@ -106,6 +112,6 @@ export default function Event({ id, host_id, name, location, description, date,
       }
       {renderQRCode()}
       <br/><br/>
-    </>     
+    </div>     
   )
 }
