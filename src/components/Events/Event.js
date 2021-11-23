@@ -4,6 +4,7 @@ import { Button } from '../Button'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import QRCode from 'react-qr-code';
+import './Event.css';
 
 const saveSvgAsPng = require('save-svg-as-png');
 
@@ -12,12 +13,6 @@ const imageOptions = {
   encoderOptions: 1,
   backgroundColor: 'white',
 };
-
-const eventStyle = {
-  padding: '20px',
-  display: 'inline-block',
-  textAlign: 'center',
-}
 
 export default function Event({ id, host_id, name, location, description, date, 
   startTime, endTime, registrations, hostEvents }) {
@@ -96,7 +91,7 @@ export default function Event({ id, host_id, name, location, description, date,
   }
 
   return (
-    <div style={eventStyle}>
+    <div class='eventItem'>
       <br/><br/><br/>
       <div>Event name:  {name}</div><br/>
       <div>Location:    {location}</div> <br/>
