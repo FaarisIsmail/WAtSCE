@@ -88,7 +88,7 @@ export function Details(){
                 <div>
                     <h1>Event Details</h1>
                     <div>Event Name: {event.name}</div>
-                    <h2>Registered Users:</h2>
+                    <h1>Registered Users:</h1>
                     {registrations.map((registration) => (
                         <div key = {registration.id}>
                             <div>{registration.data().user_id + " " + isCheckedIn(registration.data().user_id)}</div><br></br>

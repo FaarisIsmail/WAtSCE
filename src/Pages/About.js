@@ -16,6 +16,8 @@ export default function About() {
       your mobile phone and request host access on our Create an Event page.  
       </p>
     </div>
+
+  
   )
 }
 

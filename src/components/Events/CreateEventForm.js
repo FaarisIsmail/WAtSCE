@@ -12,6 +12,7 @@ const notify = () => {
     autoClose: 5000,
   });
 }
+const currDate = new Date().toISOString().split('T')[0]
 
 export default function CreateEventForm() {
 
@@ -97,7 +98,7 @@ export default function CreateEventForm() {
       <div>Enter a description for the event:</div> <br></br>
       <input type="text" id="description" name="description"></input> <br></br><br></br>
       <div>Enter the event date:</div> <br></br>
-      <input type="date" id="date" name="date"></input><br></br><br></br>
+      <input type="date" min={currDate} id="date" name="date"></input><br></br><br></br>
       <div>Start Time:</div> <br></br>
       <input type="time" id="start" name="start"></input><br></br><br></br>
       <div>End Time:</div> <br></br>

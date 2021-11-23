@@ -11,17 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import CreateEventForm  from '../components/Events/CreateEventForm';
 import EventList from '../components/Events/EventList';
 
-
-const notify = () => {
-  toast.success("Hello!",
-  {
-    position: toast.POSITION.TOP_CENTER,
-    autoClose: 5000,
-  });
-}
-
-//const notify = () => toast("Event has been created!");
-
 export default function CreateEvent() {
   const history = useHistory();
 
@@ -34,6 +23,16 @@ export default function CreateEvent() {
   const eventRef = firestore.collection("events").where("host_id", "==", auth.currentUser.uid);
 
   const createdEvents = [];
+
+  //const notify = () => toast("Event has been created!");
+
+  const notify = () => {
+    toast.success("Hello!",
+    {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 5000,
+    });
+  }
 
   //put request entries from database in the "requests" local state
   function getRequests() {

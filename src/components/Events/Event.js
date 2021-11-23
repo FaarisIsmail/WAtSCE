@@ -13,6 +13,12 @@ const imageOptions = {
   backgroundColor: 'white',
 };
 
+const eventStyle = {
+  padding: '20px',
+  display: 'inline-block',
+  textAlign: 'center',
+}
+
 export default function Event({ id, host_id, name, location, description, date, 
   startTime, endTime, registrations, hostEvents }) {
 
@@ -74,9 +80,13 @@ export default function Event({ id, host_id, name, location, description, date,
     if (hostEvents) {
       return (
         <div>
-          <QRCode id="123456" value={"https://watsce.tech/checkin/"+id} onClick={() => {saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+id+'.png', imageOptions);}}></QRCode><br/><br/>
-          <Button onClick={() => {saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+id+'.png', imageOptions);}} >Download QR Code</Button>
-          <Button onClick={() => deleteEvent(id)}>Cancel Event</Button>
+          <QRCode id="123456" value={"https://watsce.tech/checkin/"+id} onClick={() => {
+            saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+id+'.png', imageOptions);
+          }}></QRCode><br/><br/>
+          <Button onClick={() => {
+            saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+id+'.png', imageOptions);
+          }} >Download QR Code</Button> <br/> <br/>
+          <Button onClick={() => deleteEvent(id)}>Cancel Event</Button> &nbsp;
           <Button onClick={() => window.location.href='/details/'+id}>Details</Button>
         </div>
       )
@@ -86,7 +96,7 @@ export default function Event({ id, host_id, name, location, description, date,
   }
 
   return (
-    <>
+    <div style={eventStyle}>
       <br/><br/><br/>
       <div>Event name:  {name}</div><br/>
       <div>Location:    {location}</div> <br/>
@@ -102,6 +112,6 @@ export default function Event({ id, host_id, name, location, description, date,
       }
       {renderQRCode()}
       <br/><br/>
-    </>     
+    </div>     
   )
 }
