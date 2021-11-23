@@ -1,0 +1,21 @@
+.eventItem {
+    padding: '20px';
+    display: 'inline-block';
+    text-align: 'center';
+    width: 50%;
+    border-radius: 25px;
+    background: linear-gradient(
+        90deg,
+        rgb(110, 94, 254) 0%,
+        rgba(73, 63, 252, 1) 100%
+    );
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
