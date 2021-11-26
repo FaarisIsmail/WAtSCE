@@ -91,22 +91,24 @@ export default function Event({ id, host_id, name, location, description, date,
   }
 
   return (
-    <div class='eventItem'>
-      <h1>{name}</h1><br/>
-      <div>{date}</div> <br/>
-      <div>{startTime} - {endTime}</div> <br/>
-      <div>{location}</div> <br/><br/>
-      <div>{description}</div> <br/>
-      
+    <>
+      <div class='eventItem'>
+        <h1>{name}</h1><br/>
+        <div>{date}</div> <br/>
+        <div>{startTime} - {endTime}</div> <br/>
+        <div>{location}</div> <br/><br/>
+        <div>{description}</div> <br/>
+        
 
-      {!registrationExists(id) && auth.currentUser.uid != host_id &&
-        <Button onClick={() => registerForEvent(id)}>Register</Button>
-      }
-      {registrationExists(id) &&
-        <Button onClick={() => cancelRegistration(id)}>Cancel Registration</Button>
-      }
-      {renderQRCode()}
-      <br/><br/>
-    </div>     
+        {!registrationExists(id) && auth.currentUser.uid != host_id &&
+          <Button onClick={() => registerForEvent(id)}>Register</Button>
+        }
+        {registrationExists(id) &&
+          <Button onClick={() => cancelRegistration(id)}>Cancel Registration</Button>
+        }
+        {renderQRCode()}
+        <br/><br/>
+      </div>     
+    </>
   )
 }

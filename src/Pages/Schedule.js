@@ -61,7 +61,7 @@ export default function Schedule() {
   //TODO: if the user is the host, the "cancel event" button will be shown
   return (
     <div>
-      <h1>My Schedule</h1>
+      <h2>My Schedule</h2>
 
       {events.forEach(event => {
 
