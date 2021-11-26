@@ -8,7 +8,7 @@ export default function Home1() {
   
   const [events, setEvents] = useState([]); // List of all events
   const [registrations, setRegistrations] = useState([]); //List of registrations for current user
-  const ref = firestore.collection("events").orderBy("start");
+  const ref = firestore.collection("events").where('start', '>', new Date()).orderBy("start");
   const registrationRef = firestore.collection("registrations").where("user_id", "==", auth.currentUser.uid);
   const allEvents = [];
 
@@ -47,7 +47,7 @@ export default function Home1() {
   // TODO: if the user is the host, the "cancel event" button will be shown
   return (
     <div>
-      <h1>Scheduled Events</h1>
+      <h1>Upcoming Events</h1>
       {events.forEach(event => {
 
         const curEvent = {
