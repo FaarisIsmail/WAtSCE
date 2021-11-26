@@ -92,12 +92,12 @@ export default function Event({ id, host_id, name, location, description, date,
 
   return (
     <div class='eventItem'>
-      <br/><br/><br/>
-      <div>Event name:  {name}</div><br/>
-      <div>Location:    {location}</div> <br/>
-      <div>Description:   {description}</div> <br/>
-      <div>Date:  {date}</div> <br/>
-      <div>Time:  {startTime} - {endTime}</div> <br/>
+      <h1>{name}</h1><br/>
+      <div>{date}</div> <br/>
+      <div>{startTime} - {endTime}</div> <br/>
+      <div>{location}</div> <br/><br/>
+      <div>{description}</div> <br/>
+      
 
       {!registrationExists(id) && auth.currentUser.uid != host_id &&
         <Button onClick={() => registerForEvent(id)}>Register</Button>
