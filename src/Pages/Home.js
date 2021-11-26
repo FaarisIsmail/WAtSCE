@@ -47,7 +47,7 @@ export default function Home1() {
   // TODO: if the user is the host, the "cancel event" button will be shown
   return (
     <div>
-      <h1>Upcoming Events</h1>
+      <h2>Upcoming Events</h2>
       {events.forEach(event => {
 
         const curEvent = {

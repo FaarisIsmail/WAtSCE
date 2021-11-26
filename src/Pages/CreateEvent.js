@@ -164,6 +164,8 @@ export default function CreateEvent() {
         })}
 
         <CreateEventForm />
+        <br/><br/>
+        <h2>Your Events:</h2>
         <EventList events={createdEvents} registrations={[]} hostEvents={true} />
 
       </div>
