@@ -85,7 +85,7 @@ export function Details(){
         if (event.host_id === auth.currentUser.uid)
         {
             return (
-                <div>
+                <div class="eventItem">
                     <h1>Event Details</h1>
                     <div>Event Name: {event.name}</div>
                     <h1>Registered Users:</h1>
