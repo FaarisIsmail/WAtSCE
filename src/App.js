@@ -20,7 +20,7 @@ import { Button } from './components/Button';
 import { useEffect, useState} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import logo from './components/Navbar/logo7.png';
+import logoWhiteText from './logo-white-text.png';
 
 toast.configure();
 
@@ -103,7 +103,7 @@ function SignInScreen() {
   
     return (
       <div className="App">
-        <img className="nav-icon" src={logo} alt="logo_main" width="250"/>
+        <img className="nav-icon" src={logoWhiteText} alt="logo_main" width="250"/>
         {calLottie()}
         <p>Please sign-in:</p>
         <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
