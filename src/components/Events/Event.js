@@ -23,7 +23,8 @@ export default function Event({ id, host_id, name, location, description, date,
   function registerForEvent(event_id) {
     db.collection("registrations").doc(id + "_" + auth.currentUser.uid).set({
       user_id: auth.currentUser.uid,
-      event_id: id
+      event_id: id,
+      user_name: auth.currentUser.displayName
     })
 
     //db.collection(eventid).collection()
