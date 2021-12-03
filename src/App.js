@@ -17,7 +17,6 @@ import { Checkin } from './Pages/Checkin';
 import { Details } from './Pages/Details';
 import Schedule from './Pages/Schedule';
 import { Button } from './components/Button';
-import { useEffect, useState} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from './components/Navbar/logo7.png';

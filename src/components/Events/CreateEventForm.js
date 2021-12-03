@@ -1,6 +1,6 @@
 import React from 'react';
-import { doc, getDoc, Timestamp } from 'firebase/firestore';
-import {auth, db, firestore} from '../../firebase.js'
+import { Timestamp } from 'firebase/firestore';
+import {auth, db} from '../../firebase.js'
 import { Button } from '../Button';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
