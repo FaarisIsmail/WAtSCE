@@ -1,5 +1,5 @@
 import React from 'react';
-import {auth, db, firestore} from '../../firebase.js';
+import {auth, db} from '../../firebase.js';
 import { Button } from '../Button'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
