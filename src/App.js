@@ -2,7 +2,7 @@ import './App.css';
 
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import StyledFirebaseAuth from 'react-firebaseui/dist/StyledFirebaseAuth';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { BrowserRouter as Router} from "react-router-dom";
 import Route from "react-router-dom/Route";
