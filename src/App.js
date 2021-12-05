@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { BrowserRouter as Router} from "react-router-dom";
 import Route from "react-router-dom/Route";
 import Navbar from "./components/Navbar/Navbar";
-import {auth, uiConfig} from './firebase.js'
+import {auth, uiConfig, db} from './firebase.js'
 import About from './Pages/About';
 import CreateEvent from './Pages/CreateEvent';
 import Home from './Pages/Home';
@@ -15,6 +15,7 @@ import calLottie from './lottie'
 import { RequestForm } from './Pages/RequestForm';
 import { Checkin } from './Pages/Checkin';
 import { Details } from './Pages/Details';
+import { MyCreatedEvents } from './Pages/MyCreatedEvents';
 import Schedule from './Pages/Schedule';
 import { Button } from './components/Button';
 import { useEffect, useState} from 'react';
@@ -25,7 +26,7 @@ import logoWhiteText from './logo-white-text.png';
 toast.configure();
 
 function App() {  
-  const [user, loading] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth); 
 
   if (loading) { 
     return null
@@ -48,15 +49,15 @@ function App() {
     </div>
     )
   }
+
   return (
     <Main />
   )
-  
 
 }
 
 function Main() {
-  /*const [role, setRole] = useState([]); 
+  const [role, setRole] = useState([]); 
 
   function getRole() {
     var docRef = db.collection("users").doc(auth.currentUser.uid);
@@ -75,12 +76,14 @@ function Main() {
 
 useEffect(() => {
   getRole();
-}, []);*/
+}, []);
+
+  console.log('USER ROLE: ' + role)
 
   return (
     <>
       <Router>
-        <Navbar />
+        <Navbar role={role}/>
         
         <Route exact path="/request_form" component={RequestForm} />
         <Route path="/about" component={About} />
@@ -89,6 +92,7 @@ useEffect(() => {
         <Route path="/checkin" component={Checkin} />
         <Route path="/schedule" component={Schedule} />
         <Route path="/details" component={Details} />
+        <Route path="/my-created-events" component={MyCreatedEvents} />
 
       </Router>
 

@@ -17,44 +17,7 @@ export default function CreateEvent() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
   const [userRole, setUserRole] = useState();  // Local user role state
   const [requests, setRequests] = useState([]); // List of requests
-  const [events, setEvents] = useState([]); //List of events that the user is hosting
 
-  const ref = firestore.collection("requests");
-  const eventRef = firestore.collection("events").where("host_id", "==", auth.currentUser.uid);
-
-  const createdEvents = [];
-
-  //const notify = () => toast("Event has been created!");
-
-  const notify = () => {
-    toast.success("Hello!",
-    {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 5000,
-    });
-  }
-
-  //put request entries from database in the "requests" local state
-  function getRequests() {
-    ref.onSnapshot((querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
-      setRequests(items);
-    })
-  }
-
-  //put event entries that the user is hosting into the "events" local state
-  function getEvents() {
-    eventRef.onSnapshot((querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc);
-      });
-      setEvents(items);
-    })
-  }
 
   //checks to see if given user is in the database, if not, adds them as a student
   const checkForNewUser = async (uid) =>
@@ -125,10 +88,6 @@ export default function CreateEvent() {
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
 
-  useEffect(() => {
-    getRequests();
-    getEvents();
-  }, []);
 
   //student homepage
   if (userRole === "student")
@@ -147,26 +106,8 @@ export default function CreateEvent() {
   {
     return (
       <div>
-        {events.forEach(event => {
-
-          const curEvent = {
-            id: event.id,
-            host_id: event.data().host_id,
-            name: event.data().name,
-            location: event.data().location,
-            description: event.data().description,
-            date: event.data().date_string,
-            startTime: event.data().start_string,
-            endTime: event.data().end_string
-          }
-
-          createdEvents.push(curEvent);
-        })}
 
         <CreateEventForm />
-        <br/><br/>
-        <h2>Your Events:</h2>
-        <EventList events={createdEvents} registrations={[]} hostEvents={true} />
 
       </div>
     );

@@ -4,6 +4,8 @@ import {auth, db, firestore} from '../../firebase.js'
 import { Button } from '../Button';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './MyEvent.css';
+import './EventForm.css';
 
 const notify = () => {
   toast.success("Hello!",
@@ -89,7 +91,7 @@ export default function CreateEventForm() {
   }
 
   return (
-    <form onSubmit={CreateEvent}>
+    <form onSubmit={CreateEvent} class="eventForm">
       <h1>Create an Event</h1>
       <div>Enter the event name:</div> <br></br>
       <input type="text" id="event_name" name="event_name"></input> <br></br><br></br>

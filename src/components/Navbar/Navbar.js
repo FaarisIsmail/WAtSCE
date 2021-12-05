@@ -1,9 +1,12 @@
 import React from 'react';
 import { MenuItems } from './MenuItems';
+import { MenuItemsHost } from './MenuItemsHost';
 import { Button } from '../Button'
 import './Navbar.css';
 import {auth} from '../../firebase.js'
 import logo from './logo7.png';
+
+let navbarItems = [];
 
 class Navbar extends React.Component {
 
@@ -14,6 +17,14 @@ class Navbar extends React.Component {
   }
 
   render() {
+
+    {
+      if (this.props.role == 'host' || this.props.role == 'admin') {
+        navbarItems = MenuItemsHost
+      } else {
+        navbarItems = MenuItems
+      }
+    }
 
     return (
       <nav className="NavbarItems">
@@ -34,7 +45,7 @@ class Navbar extends React.Component {
         </div>
 
         <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
-          {MenuItems.map((item, index) => {
+          {navbarItems.map((item, index) => {
             return (
               <li key={index}>
                 <a className={item.cName} href={item.url}>

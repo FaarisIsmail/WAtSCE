@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import QRCode from 'react-qr-code';
 import './Event.css';
+import './MyEvent.css';
 import Collapsible from 'react-collapsible';
 
 const saveSvgAsPng = require('save-svg-as-png');
@@ -102,7 +103,7 @@ export default function Event({ id, host_id, name, location, description, date,
 
   return (
     <>
-      <div class='eventItem'>
+      <div class={registrationExists(id) || (auth.currentUser.uid == host_id) ? 'myEvent' : 'eventItem'}>
         <h1>{name}</h1><br/>
         <div>{date}</div> <br/>
         <div>{startTime} - {endTime}</div> <br/>
