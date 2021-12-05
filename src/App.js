@@ -22,6 +22,7 @@ import { useEffect, useState} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logoWhiteText from './logo-white-text.png';
+import { doc, getDoc } from 'firebase/firestore';
 
 toast.configure();
 
@@ -66,8 +67,17 @@ function Main() {
             console.log("Document data:", doc.data());
             setRole(doc.data().role)
         } else {
-            console.log("No such document!");
-            setRole("none");
+            console.log("No such document, creating new user");
+            db.collection("users").doc(auth.currentUser.uid).set({
+              role: "student" //can be student, admin, or host
+            })
+            .then(() => {
+              console.log("Document successfully written!");
+            })
+            .catch((error) => {
+              console.error("Error writing document: ", error);
+            });
+            setRole("student");
         }
     }).catch((error) => {
         console.log("Error getting document:", error);
@@ -127,8 +137,5 @@ function setDisplayName(event) {
   });
   console.log(auth.currentUser.displayName)
 }
-
-
-
 
 export default App;
