@@ -23,3 +23,9 @@
 /*.Collapsible__trigger {
     
 }*/
+
+.description_text {
+  width: 60%; 
+  height: 50%;
+  resize: none;
+}
