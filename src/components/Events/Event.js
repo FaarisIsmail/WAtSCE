@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {auth, db, firestore} from '../../firebase.js';
 import { Button } from '../Button'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import QRCode from 'react-qr-code';
 import './Event.css';
+import Collapsible from 'react-collapsible';
 
 const saveSvgAsPng = require('save-svg-as-png');
 
@@ -16,6 +17,12 @@ const imageOptions = {
 
 export default function Event({ id, host_id, name, location, description, date, 
   startTime, endTime, registrations, hostEvents }) {
+
+    const [open, setOpen] = useState(false);
+
+    const handleTriggerClick = () => {
+      setOpen(!open);
+    }
 
   // Create a new registration entry for the given event id and current user id
   // the id for this new registration entry is <eventId>_<userId>, and it contains
@@ -91,6 +98,8 @@ export default function Event({ id, host_id, name, location, description, date,
     }
   }
 
+
+
   return (
     <>
       <div class='eventItem'>
@@ -98,8 +107,6 @@ export default function Event({ id, host_id, name, location, description, date,
         <div>{date}</div> <br/>
         <div>{startTime} - {endTime}</div> <br/>
         <div>{location}</div> <br/><br/>
-        <div>{description}</div> <br/>
-        
 
         {!registrationExists(id) && auth.currentUser.uid != host_id &&
           <Button onClick={() => registerForEvent(id)}>Register</Button>
@@ -109,6 +116,16 @@ export default function Event({ id, host_id, name, location, description, date,
         }
         {renderQRCode()}
         <br/><br/>
+        {open && <Collapsible trigger={<>See Less &#9650;</>}
+        {...{ open, handleTriggerClick }}>
+          <div>{description}</div> <br/>
+        </Collapsible>}
+        {!open && <Collapsible trigger={<>See More &#9660;</>}
+        {...{ open, handleTriggerClick }}>
+          <div>{description}</div> <br/>
+        </Collapsible>}
+        <br/>
+        
       </div>     
     </>
   )
