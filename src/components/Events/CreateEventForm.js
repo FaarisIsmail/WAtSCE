@@ -39,8 +39,14 @@ export default function CreateEventForm() {
     let user = auth.currentUser;
     let uid = user.uid;
   
-    if (name === "" || description === "" || location === "" || start_date === " " || end_date === " ") {
+    if (name === "" || description === "" || location === "" || e.target.date.value === "" || e.target.start.value === "" || e.target.end.value === "") {
       toast.error("Failed to create event.  Please fill out all fields.",
+      {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000,
+      });
+    } else if (e.target.start.value >= e.target.end.value) {
+      toast.error("Failed to create event.  Please enter a valid date range.",
       {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 5000,
@@ -98,7 +104,7 @@ export default function CreateEventForm() {
       <div>Enter the location of the event:</div> <br></br>
       <input type="text" id="location" name="location"></input> <br></br><br></br>
       <div>Enter a description for the event:</div> <br></br>
-      <input type="text" id="description" name="description"></input> <br></br><br></br>
+      <textarea id="description" class="description_text"></textarea> <br></br><br></br>
       <div>Enter the event date:</div> <br></br>
       <input type="date" min={currDate} id="date" name="date"></input><br></br><br></br>
       <div>Start Time:</div> <br></br>
@@ -106,6 +112,7 @@ export default function CreateEventForm() {
       <div>End Time:</div> <br></br>
       <input type="time" id="end" name="end"></input><br></br><br></br>
       <Button>Submit</Button>
+      <br></br><br></br>
     </form>
   )
 }
