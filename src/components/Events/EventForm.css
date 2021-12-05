@@ -1,4 +1,4 @@
-.eventItem {
+.eventForm {
   padding: "20px";
   display: "inline-block";
   text-align: "center";
@@ -6,8 +6,8 @@
   border-radius: 25px;
   background: linear-gradient(
     90deg,
-    rgb(110, 94, 254) 0%,
-    rgba(73, 63, 252, 1) 100%
+    rgb(175, 27, 155) 0%,
+    rgb(113, 111, 139) 100%
   );
   top: 0;
   bottom: 0;
