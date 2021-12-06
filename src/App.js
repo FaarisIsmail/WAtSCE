@@ -23,6 +23,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logoWhiteText from './logo-white-text.png';
 import { doc, getDoc } from 'firebase/firestore';
+import { Requests } from './Pages/Requests';
 
 toast.configure();
 
@@ -103,6 +104,7 @@ useEffect(() => {
         <Route path="/schedule" component={Schedule} />
         <Route path="/details" component={Details} />
         <Route path="/my-created-events" component={MyCreatedEvents} />
+        <Route path="/requests" component={Requests} />
 
       </Router>
 
