@@ -4,11 +4,7 @@
   text-align: "center";
   width: 50%;
   border-radius: 25px;
-  background: linear-gradient(
-    90deg,
-    rgb(175, 27, 155) 0%,
-    rgb(113, 111, 139) 100%
-  );
+  background: linear-gradient(90deg, #282c34 0%, rgb(87, 86, 105) 100%);
   top: 0;
   bottom: 0;
   left: 0;
@@ -25,7 +21,7 @@
 }*/
 
 .description_text {
-  width: 60%; 
+  width: 60%;
   height: 50%;
   resize: none;
 }
