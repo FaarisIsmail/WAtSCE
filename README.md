@@ -1,4 +1,4 @@
-<img src="srclogo-white-text.png"
+<img src="src/logo-white-text.png"
      alt="pingg"
      style="float: center;" />
     
