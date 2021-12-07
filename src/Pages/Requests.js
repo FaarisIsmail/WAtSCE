@@ -15,6 +15,7 @@ export function Requests() {
   const [userRole, setUserRole] = useState();  // Local user role state
   const [requests, setRequests] = useState([]); // List of requests
 
+  const ref = firestore.collection("requests");
 
   //checks to see if given user is in the database, if not, adds them as a student
   const checkForNewUser = async (uid) =>
@@ -44,6 +45,21 @@ export function Requests() {
       let r = docSnap.get("role");
       setUserRole(r);
     }
+  }
+
+  useEffect(() => {
+    getRequests();
+  }, []);
+
+  //put request entries from database in the "requests" local state
+  function getRequests() {
+    ref.onSnapshot((querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+      setRequests(items);
+    })
   }
 
   //called when admin accepts a host role request
