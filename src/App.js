@@ -89,8 +89,6 @@ useEffect(() => {
   getRole();
 }, []);
 
-  console.log('USER ROLE: ' + role)
-
   return (
     <>
       <Router>
