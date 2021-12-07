@@ -25,11 +25,11 @@ Dependancies:
 ``npm install``
 
 ## Running the app in local development mode
-Run `npm start`
+Run `npm start`  
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 # Deploying Changes to the Site
 This firebase project has been set up with Github Actions. To deploy changes to the live website, simply merge or commit changes to the `main` branch. Please allow a few minutes for changes to reflected on the site.
 
 # Live Deployment Site
-(https://watsce.tech/)
+[https://watsce.tech/](https://watsce.tech/)
