@@ -1,6 +1,5 @@
 <img src="src/logo-white-text.png"
-     alt="pingg"
-     align="center"/>
+     style="float: center;"/>
     
 Capstone project for CS1980 at the University of Pittsburgh
 
