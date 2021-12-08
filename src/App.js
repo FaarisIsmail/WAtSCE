@@ -69,7 +69,8 @@ function Main() {
         } else {
             console.log("No such document, creating new user");
             db.collection("users").doc(auth.currentUser.uid).set({
-              role: "student" //can be student, admin, or host
+              role: "student", //can be student, admin, or host
+              phone: auth.currentUser.phoneNumber
             })
             .then(() => {
               console.log("Document successfully written!");

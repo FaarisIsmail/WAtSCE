@@ -1,7 +1,8 @@
 import userEvent from '@testing-library/user-event';
 import React, {useState, useEffect } from 'react';
-import {auth, db, firestore} from '../firebase.js';
+import {auth, db, firestore, functions} from '../firebase.js';
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
+import { Button } from '../components/Button';
 
 
 export function Details(){
@@ -73,6 +74,15 @@ export function Details(){
         return "";
       }
 
+      const SendMessage = async (e) => {
+        e.preventDefault();
+        let message = e.target.message_box.value;
+        console.log(message);
+        document.getElementById("message_box").value = "";
+        const sendHostMessage = functions.httpsCallable('sendHostMessage');
+        sendHostMessage({ message: message, eventid: eventid });
+      }
+
     useEffect(() => {
       getEvent();
       getRegistrations();
@@ -87,7 +97,13 @@ export function Details(){
             return (
                 <div class="eventItem">
                     <h1>Event Details</h1>
-                    <div>Event Name: {event.name}</div>
+                    <div>Event Name: {event.name}</div> <br></br>
+                    <form onSubmit={SendMessage} class="messageForm">
+                        <div>Send a message to participants:</div> <br></br>
+                        <input type="text" id="message_box" name="message_box"></input> <br></br> <br></br>
+                        <Button>Send</Button>
+                    </form>
+                    <br></br>
                     <h1>Registered Users:</h1>
                     {registrations.map((registration) => (
                         <div key = {registration.id}>

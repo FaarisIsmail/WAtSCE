@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import 'firebase/compat/functions';
 import * as firebaseui from 'firebaseui'
 
 firebase.initializeApp({
@@ -16,6 +17,7 @@ firebase.initializeApp({
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 export const db = firebase.firestore();
+export const functions = firebase.functions();
 
 export const uiConfig = {
   // Popup signin flow rather than redirect flow.
