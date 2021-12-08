@@ -21,7 +21,7 @@ WAtSCE (Web Apps to Support Community Enablement) is a scheduling app created by
 Firebase CLI:
 `npm install -g firebase-tools`
 
-Dependancies:
+Dependencies:
 ``npm install``
 
 ## Running the app in local development mode
@@ -30,6 +30,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 # Deploying Changes to the Site
 This firebase project has been set up with Github Actions. To deploy changes to the live website, simply merge or commit changes to the `main` branch. Please allow a few minutes for changes to reflected on the site.
+
+# Hosting and Cloud Database
+Our hosting and database are done using Google Firebase and Firestore. You can view hosting, user, cloud, and database information can be found on the Firebase console for our project linked below (must have project access to view)  
+[Firebase Console](https://console.firebase.google.com/project/cs1980/)
 
 # Live Deployment Site
 [https://watsce.tech/](https://watsce.tech/)
