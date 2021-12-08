@@ -81,4 +81,41 @@ exports.sendHostMessage = functions.https.onCall((data, context) => {
     client.messages.create(textMessage);*/
 
     return "Completed!";
-})
+});
+
+exports.sendReminders = functions.pubsub.schedule('55 17 * * *')
+  .timeZone('America/New_York') // Users can choose timezone - default is America/Los_Angeles
+  .onRun((context) => {
+
+    var db = admin.firestore();
+    var date = new Date();
+
+    db.collection("events").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            var diff = doc.data().start.toMillis()-date.getTime();
+            if ((diff <= 108000000) && diff >= 21600000) {
+                db.collection("registrations").where("event_id", "==", doc.id).get().then(snapshot => {
+                    snapshot.forEach((doc2) => {
+                        db.collection("users").doc(doc2.data().user_id).get().then((doc3) => {
+                            const message = "Reminder that "+doc.getData().name+" is scheduled for "+doc.getData().start_string;
+                            let textMessage = {
+                                body: message,
+                                to: doc3.data().phone,
+                                from: twilioNumber
+                            }
+
+                            client.messages.create(textMessage);
+                            console.log("Sent text to " + doc3.data().phone);
+                        })
+                    });
+                });
+            }
+        });
+    });
+
+
+
+
+
+  return null;
+});
