@@ -62,7 +62,8 @@ export default function CreateEventForm() {
         end: Timestamp.fromDate(e_date),
         start_string: s_date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
         end_string: e_date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        date_string: s_date.toDateString()
+        date_string: s_date.toDateString(),
+        exists: true
       })
       .then(() => {
         // Reset input form to default of empty

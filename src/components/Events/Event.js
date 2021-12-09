@@ -77,7 +77,26 @@ export default function Event({ id, host_id, name, location, description, date,
 
   //deletes the event and all associated user registrations
   function deleteEvent(event_id) {
-      db.collection("events").doc(event_id).delete();
+      db.collection("events").doc(event_id).update({
+        exists: false
+      }).then(() => {
+        console.log("Event successfully deleted");
+        toast.success("The event has been successfully cancelled",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 5000,
+          });
+         /* const sendHostMessage = functions.httpsCallable('sendHostMessage');
+          sendHostMessage({ message: "Event <event_name> has been cancelled", eventid: event_id });*/
+      })
+      .catch((error) => {
+        console.error("Error deleting event: ", error);
+        toast.error("Error cancelling event",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 5000,
+          });
+      });
       
       //TODO: delete all registrations where event_id = the event_id for the event which we are deleting
 
