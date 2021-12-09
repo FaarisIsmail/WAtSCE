@@ -66,7 +66,7 @@ export function Requests() {
   //deletes the request and sets the requesting user's role to host
   function acceptRequest(uid)
   {
-    db.collection("users").doc(uid).set({
+    db.collection("users").doc(uid).update({
       role: "host"
     })
     .then(() => {
