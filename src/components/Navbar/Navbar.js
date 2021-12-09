@@ -1,6 +1,7 @@
 import React from 'react';
 import { MenuItems } from './MenuItems';
 import { MenuItemsHost } from './MenuItemsHost';
+import { MenuItemsAdmin } from './MenuItemsAdmin';
 import { Button } from '../Button'
 import './Navbar.css';
 import {auth} from '../../firebase.js'
@@ -19,8 +20,10 @@ class Navbar extends React.Component {
   render() {
 
     {
-      if (this.props.role == 'host' || this.props.role == 'admin') {
+      if (this.props.role == 'host') {
         navbarItems = MenuItemsHost
+      } else if (this.props.role == 'admin') {
+        navbarItems = MenuItemsAdmin
       } else {
         navbarItems = MenuItems
       }

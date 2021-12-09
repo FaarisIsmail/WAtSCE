@@ -11,9 +11,14 @@ import Collapsible from 'react-collapsible';
 const saveSvgAsPng = require('save-svg-as-png');
 
 const imageOptions = {
-  scale: 5,
+  scale: 1,
   encoderOptions: 1,
   backgroundColor: 'white',
+};
+
+const imageSize = {
+  height: 'auto',
+  maxWidth: '100%',
 };
 
 export default function Event({ id, host_id, name, location, description, date, 
@@ -84,7 +89,7 @@ export default function Event({ id, host_id, name, location, description, date,
     if (hostEvents) {
       return (
         <div>
-          <QRCode id="123456" value={"https://watsce.tech/checkin/"+id} onClick={() => {
+          <QRCode id="123456" style={imageSize} value={"https://watsce.tech/checkin/"+id} onClick={() => {
             saveSvgAsPng.saveSvgAsPng(document.getElementById('123456'), 'qr-code-'+id+'.png', imageOptions);
           }}></QRCode><br/><br/>
           <Button onClick={() => {

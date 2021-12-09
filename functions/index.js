@@ -10,7 +10,7 @@ const authToken = functions.config().twilio.token;
 
 const client = new twilio(accountSid, authToken);
 
-const twilioNumber = '+18449052176'
+const twilioNumber = '+14125153406'
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -20,16 +20,11 @@ const twilioNumber = '+18449052176'
 //   response.send("Hello from Firebase!");
 // });
 
-exports.sendHostMessage = functions.https.onCall((data, context) => {
+exports.sendHostMessage = functions.region("us-east4").https.onCall((data, context) => {
     const message = data.message;
-   // console.log(message);
     const eventid = data.eventid;
 
-    let user_ids = [];
-    let phone_numbers = [];
-
     let user_id = context.auth.uid;
-    console.log("user_id: " + user_id);
     var db = admin.firestore();
 
     db.collection("events").doc(eventid).get().then((curr_event) => {
@@ -37,18 +32,14 @@ exports.sendHostMessage = functions.https.onCall((data, context) => {
         {
             db.collection("registrations").where("event_id", "==", eventid).get().then(snapshot => {
                 snapshot.forEach((doc) => {
-                    //user_ids.push(doc.data().user_id);
-                    console.log("id: " + doc.data().user_id);
                     db.collection("users").doc(doc.data().user_id).get().then((doc2) => {
-                        //phone_numbers.push(doc2.data().phone)
-                        //console.log("phone: " + doc2.data().phone);
                         let textMessage = {
                             body: message,
                             to: doc2.data().phone,
                             from: twilioNumber
                         }
         
-                        client.messages.create(textMessage);
+                        client.messages.create(textMessage).then(console.log("Text sent to "+doc2.data().phone));
                     })
                 });
             });
@@ -57,28 +48,42 @@ exports.sendHostMessage = functions.https.onCall((data, context) => {
             return "Insufficient Permissions";
     });
 
-    
-
-    /*db.collection("users").doc("bWynuLXYu2hxuwaTpug6_bmUXn7dhGlg1J9XmWLyOWtlB8C93").get().then((doc2) => {
-        //phone_numbers.push(doc2.data().phone)
-        console.log("phone: " + doc2.data());
-    })*/
-
-    /*user_ids.forEach((user_id) => {
-        db.collection("users").doc(user_id).get().then((doc) => {
-            phone_numbers.push(doc.data().phone)
-            console.log("phone: " + doc.data().phone);
-        })
-        console.log("hello!" + user_id);
-    });*/
-
-    /*const textMessage = {
-        body: message,
-        to: '+14129960764',
-        from: twilioNumber
-    }
-
-    client.messages.create(textMessage);*/
 
     return "Completed!";
+})
+
+exports.sendReminders = functions.region("us-east4").pubsub.schedule('55 17 * * *')
+  .timeZone('America/New_York') // Users can choose timezone - default is America/Los_Angeles
+  .onRun((context) => {
+
+    var db = admin.firestore();
+    var date = new Date();
+
+    db.collection("events").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            var diff = doc.data().start.toMillis()-date.getTime();
+            if ((diff <= 108000000) && diff >= 21600000) {
+                db.collection("registrations").where("event_id", "==", doc.id).get().then(snapshot => {
+                    snapshot.forEach((doc2) => {
+                        db.collection("users").doc(doc2.data().user_id).get().then((doc3) => {
+                            const message = "Reminder that "+doc.data().name+" is scheduled for "+doc.data().start_string;
+                            let textMessage = {
+                                body: message,
+                                to: doc3.data().phone,
+                                from: twilioNumber
+                            }
+
+                            client.messages.create(textMessage).then(console.log("Text sent to "+doc3.data().phone));
+                        })
+                    });
+                });
+            }
+        });
+    });
+
+
+
+
+
+  return null;
 })

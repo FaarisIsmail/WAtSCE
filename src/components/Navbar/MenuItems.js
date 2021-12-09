@@ -9,12 +9,12 @@ export const MenuItems = [
     url: '/schedule',
     cName: 'nav-links',
   },
-    {
-      title: 'Create an event',
-      url: '/create-event',
-      cName: 'nav-links',
+  {
+    title: 'Request Host Access',
+    url: '/requests',
+    cName: 'nav-links',
   },
-    {
+  {
     title: 'About',
     url: '/about',
     cName: 'nav-links',

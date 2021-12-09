@@ -60,8 +60,8 @@ export default function CreateEventForm() {
         location: location,
         start: Timestamp.fromDate(s_date),
         end: Timestamp.fromDate(e_date),
-        start_string: s_date.toLocaleTimeString("en-US"),
-        end_string: e_date.toLocaleTimeString("en-US"),
+        start_string: s_date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+        end_string: e_date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
         date_string: s_date.toDateString()
       })
       .then(() => {
