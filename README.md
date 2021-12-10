@@ -14,6 +14,9 @@ Contributors:
 
 WAtSCE (Web Apps to Support Community Enablement) is a scheduling app created by Pitt students with the overarching goal of providing Hill District high school students with new opporunities to learn and apply digital skills. Teachers, local business owners, and community leaders are able to use WATSCE to create and post events for students to attend.
 
+# Demo
+[WAtSCE Demo Video](https://youtu.be/FiO0W6HiRQw)
+
 # Getting Started
 Please download the current Github repository into an empty folder on your machine. This can be done by using the `git clone https://github.com/FaarisIsmail/WAtSCE.git` on your command line while inside the folder.
 
