@@ -105,7 +105,7 @@ export default function CreateEventForm() {
       <div>Enter the location of the event:</div> <br></br>
       <input type="text" id="location" name="location"></input> <br></br><br></br>
       <div>Enter a description for the event:</div> <br></br>
-      <textarea id="description" class="description_text"></textarea> <br></br><br></br>
+      <input type="text" id="description" class="description_text"></input> <br></br><br></br>
       <div>Enter the event date:</div> <br></br>
       <input type="date" min={currDate} id="date" name="date"></input><br></br><br></br>
       <div>Start Time:</div> <br></br>
