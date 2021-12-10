@@ -41,7 +41,7 @@ Our hosting and database are done using Google Firebase and Firestore. You can v
 [Firebase Console](https://console.firebase.google.com/project/cs1980/)
 
 # Cloud Functions
-Cloud functions are are also hosted on firebase and are located in the [functions](./functions) folder. There are currently cloud functions running
+Cloud functions are are also hosted on firebase and are located in the [functions](./functions) folder. There are currently two SMS cloud functions running
 - Send Message: This allows the host to send messages to registered users from the 'Details' page for the particular event on the website.
 - Send Reminders: This sends a reminder every day at 6pm to everyone who has registered for an event that will start the following day.
 
@@ -50,4 +50,5 @@ Both of these are SMS functions implemented with Twilio.
 In order to add additional cloud functions, add them to the [index.js](./functions/index.js) file located inside the 'functions' folder. Then, run the command `firebase deploy --only functions` in your command line while in the local repository folder.
 
 # Live Deployment Site
+A live version of the WAtSCE website can be viewed here:  
 [https://watsce.tech/](https://watsce.tech/)
