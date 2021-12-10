@@ -31,7 +31,6 @@ export function RequestForm() {
     const RequestAccess = async (e) =>
     {
       //get info from request form
-      let name = e.target.rname.value;
       let reason = e.target.reason.value;
   
       //get the user id of the currently logged in user 
@@ -40,7 +39,7 @@ export function RequestForm() {
   
       //create the request document in firestore
       db.collection("requests").doc(uid).set({
-        name: name,
+        name: auth.currentUser.displayName,
         reason: reason,
         user_id: uid
       })
@@ -59,8 +58,6 @@ export function RequestForm() {
       return (
         <div>
            <form onSubmit={RequestAccess}>
-              <div>Enter your name:</div> <br></br>
-                <input type="text" id="rname" name="rname"></input> <br></br>
                 <div>Why do you want to be able to create events?</div> <br></br>
                 <input type="text" id="reason" name="reason"></input> <br></br>
                 <button>Submit</button>

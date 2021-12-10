@@ -2,6 +2,8 @@ import userEvent from '@testing-library/user-event';
 import React, {useState, useEffect } from 'react';
 import {auth, db, firestore, functions} from '../firebase.js';
 import { BrowserRouter as Router, Link, useHistory, Redirect} from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '../components/Button';
 
 
@@ -77,10 +79,28 @@ export function Details(){
       const SendMessage = async (e) => {
         e.preventDefault();
         let message = e.target.message_box.value;
-        console.log(message);
-        document.getElementById("message_box").value = "";
-        const sendHostMessage = functions.httpsCallable('sendHostMessage');
-        sendHostMessage({ message: message, eventid: eventid });
+        console.log(event.name);
+        if (message === '')
+        {
+            toast.error("Cannot send a blank message.",
+            {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 5000,
+            });
+        }
+        else
+        {
+            message = "Message sent from host of " + event.name + ": " + message;
+            console.log(message);
+            toast.success("Your message has been sent",
+            {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 5000,
+            });
+            document.getElementById("message_box").value = "";
+            const sendHostMessage = functions.httpsCallable('sendHostMessage');
+            sendHostMessage({ message: message, eventid: eventid });
+        }
       }
 
     useEffect(() => {
@@ -88,7 +108,6 @@ export function Details(){
       getRegistrations();
       getCheckins();
     }, []);
-
     
     if ((event !== "none") && (event !== "loading"))
     {
@@ -100,7 +119,7 @@ export function Details(){
                     <div>Event Name: {event.name}</div> <br></br>
                     <form onSubmit={SendMessage} class="messageForm">
                         <div>Send a message to participants:</div> <br></br>
-                        <input type="text" id="message_box" name="message_box"></input> <br></br> <br></br>
+                        <textarea id="message_box" name="message_box" class="message_box" style={{resize: "none"}}></textarea> <br></br> <br></br>
                         <Button>Send</Button>
                     </form>
                     <br></br>
