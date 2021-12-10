@@ -112,7 +112,7 @@ export default function CreateEventForm() {
       <input type="time" id="start" name="start"></input><br></br><br></br>
       <div>End Time:</div> <br></br>
       <input type="time" id="end" name="end"></input><br></br><br></br>
-      <Button>Submit</Button>
+      <button>Submit</button>
       <br></br><br></br>
     </form>
   )
