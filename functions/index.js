@@ -20,7 +20,7 @@ const twilioNumber = '+14125153406'
 //   response.send("Hello from Firebase!");
 // });
 
-exports.sendHostMessage = functions.region("us-east4").https.onCall((data, context) => {
+exports.sendHostMessage = functions.https.onCall((data, context) => {
     const message = data.message;
     const eventid = data.eventid;
 
