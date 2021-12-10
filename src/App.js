@@ -42,7 +42,7 @@ function App() {
       <div class="bodyForm">
         <form class = "form" onSubmit={setDisplayName}>
               <h1 class="title">Welcome to WATSCE!</h1>
-              <h2 class="subtitle">Please enter a display name</h2>
+              <h2 class="subtitle">Please enter your first and last name</h2>
               <div class="input-container ic1"> 
                 <input class="input" type="text" id="displayName" name="displayName"></input> <br></br>
               </div> <br></br>

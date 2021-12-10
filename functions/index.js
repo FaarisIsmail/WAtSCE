@@ -66,7 +66,7 @@ exports.sendReminders = functions.region("us-east4").pubsub.schedule('55 17 * * 
                 db.collection("registrations").where("event_id", "==", doc.id).get().then(snapshot => {
                     snapshot.forEach((doc2) => {
                         db.collection("users").doc(doc2.data().user_id).get().then((doc3) => {
-                            const message = "Reminder that "+doc.data().name+" is scheduled for "+doc.data().start_string;
+                            const message = "Reminder that "+doc.data().name+" is scheduled for "+doc.data().date_string+" at "+doc.data().start_string;
                             let textMessage = {
                                 body: message,
                                 to: doc3.data().phone,
