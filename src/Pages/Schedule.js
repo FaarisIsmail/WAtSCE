@@ -7,7 +7,7 @@ export default function Schedule() {
   
   const [events, setEvents] = useState([]); // List of all events
   const [registrations, setRegistrations] = useState([]); //List of registrations for current user
-  const ref = firestore.collection("events").where('start', '>', new Date()).orderBy("start");
+  const ref = firestore.collection("events").where('start', '>', new Date()).orderBy("start").where("exists", "==", true);
   const registrationRef = firestore.collection("registrations").where("user_id", "==", auth.currentUser.uid);
   const myEvents = [];
 
