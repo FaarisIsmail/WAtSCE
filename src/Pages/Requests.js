@@ -132,6 +132,7 @@ export function Requests() {
         {requests.map((request) => (
           <div key = {request.user_id}>
             <div>{request.name}</div> <br></br>
+            <div>UID: {request.user_id}</div> <br></br>
             <div>{request.reason}</div> <br></br>
             <Button onClick={() => acceptRequest(request.user_id)}>Accept</Button>
             <Button onClick={() => declineRequest(request.user_id)}>Decline</Button>
